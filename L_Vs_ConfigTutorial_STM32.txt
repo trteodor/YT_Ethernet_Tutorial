@@ -1,0 +1,6 @@
+https://youtu.be/6FrKxs_jLf0 - Video Macieja Gajdzicy na ten temat "Konfiguracja VSCode do pracy z STM32"
+
+https://www.youtube.com/watch?v=JcfHbPxRYw8 - konfiguracja vs code do pracy z stm32, debugowanie, by Me
+
+https://youtu.be/f5_KQh9M1Ac - "Napiszmy wspólnie RTOS'a! Zobacz jakie to proste" , pliki startup, 
+                            linkera i sporo niskopoziomowych ciekawostek, tj programowanie na rejestrach , by Me

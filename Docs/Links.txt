@@ -6,3 +6,5 @@ https://www.st.com/en/evaluation-tools/nucleo-f767zi.html - płytka nucleo na st
 https://kamami.pl/stm-nucleo-144/562884-nucleo-f767zi-plytka-rozwojowa-z-mikrokontrolerem-stm32f767zi.html - do zakupienia płytka NUCLEO
 
 https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/DS_LAN8742_00001989A.pdf - dokumentacja LAN8742A
+
+https://www.st.com/en/embedded-software/stm32cubef7.html - stm32f7 series examples for HAL and LL

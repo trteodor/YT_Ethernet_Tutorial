@@ -1,0 +1,6 @@
+https://github.com/posborne/cmsis-svd/blob/master/data/STMicro/STM32F7x7.svd - plik SVD
+
+https://github.com/STMicroelectronics/cmsis_core
+
+https://github.com/STMicroelectronics/cmsis_device_f7
+
