@@ -1,0 +1,8 @@
+https://www.st.com/en/microcontrollers-microprocessors/stm32f767zi.html - Procesorek - stm32f767ZI na stronie producenta
+
+https://www.st.com/en/evaluation-tools/nucleo-f767zi.html - płytka nucleo na stronie producenta
+ 
+
+https://kamami.pl/stm-nucleo-144/562884-nucleo-f767zi-plytka-rozwojowa-z-mikrokontrolerem-stm32f767zi.html - do zakupienia płytka NUCLEO
+
+https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/DS_LAN8742_00001989A.pdf - dokumentacja LAN8742A

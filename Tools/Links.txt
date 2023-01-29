@@ -1,0 +1,11 @@
+https://jmeubank.github.io/tdm-gcc/ - kompilator GCC na desktop, np. do testowania czegoś
+
+https://developer.arm.com/downloads/-/gnu-rm - kompilator dla ARM (stm32 ma arma)
+
+https://gnutoolchains.com/arm-eabi/openocd/ - OpenOCD do fleshowania płytki
+
+https://code.visualstudio.com/download _ pobieranie vs code
+
+https://doxygen.nl/download.html - instalka doxygen'a
+
+Pozostałe to nwm z sieci, pytać google

@@ -1,0 +1,402 @@
+[01/23/2023 21:49:40] DHCP Server is terminating (ignore error messages that follow)
+[01/23/2023 21:49:40] recvfrom returns with error 10038
+[01/23/2023 21:49:40] DHCP Server terminated
+[01/23/2023 22:00:17] DHCP Server is terminating (ignore error messages that follow)
+[01/23/2023 22:00:17] recvfrom returns with error 10038
+[01/23/2023 22:00:17] DHCP Server terminated
+[01/23/2023 22:00:17] DHCP Server V2.5.2.3 started as Application
+[01/23/2023 22:00:18] NetworkAdapter Initialization returns 0
+[01/23/2023 22:00:18] Adapter 0 with IP address 127.0.0.1 found but not used
+[01/23/2023 22:00:25] DHCP Server is terminating (ignore error messages that follow)
+[01/23/2023 22:00:25] DHCP Server terminated
+[01/23/2023 22:00:25] DHCP Server V2.5.2.3 started as Application
+[01/23/2023 22:00:25] NetworkAdapter Initialization returns 0
+[01/23/2023 22:00:25] Adapter 0 with IP address 192.168.43.49 found (pAdap=0x0227ba50)
+[01/23/2023 22:00:26] Adapter 0 has recognized an incoming DHCP request
+[01/23/2023 22:00:26] DHCP message = DHCPREQUEST
+[01/23/2023 22:00:26]    requested options: 1 3 6 15 31 33 43 44 46 47 119 121 249 252
+[01/23/2023 22:00:26] Lookup client data for physical address "28-C6-3F-F3-D5-40" / client_id "28-C6-3F-F3-D5-40"
+[01/23/2023 22:00:26] Client 28-C6-3F-F3-D5-40 is not configured
+[01/23/2023 22:00:26] Perform auto configuration
+[01/23/2023 22:00:26] IPPOOL_1: 192.168.43.1-254
+[01/23/2023 22:00:26] Auto configuration succeeded: IP-Addr = 192.168.43.3
+[01/23/2023 22:00:28] Reject request because client asks for another address
+[01/23/2023 22:00:28] Sending a broadcast response to the client
+[01/23/2023 22:00:28] Connection 0: sending top queue packet
+[01/23/2023 22:00:28] Adapter 0 has recognized an incoming DHCP request
+[01/23/2023 22:00:28] DHCP message = DHCPDISCOVER
+[01/23/2023 22:00:28]    requested options: 1 3 6 15 31 33 43 44 46 47 119 121 249 252
+[01/23/2023 22:00:28] Lookup client data for physical address "28-C6-3F-F3-D5-40" / client_id "28-C6-3F-F3-D5-40"
+[01/23/2023 22:00:28] Client 28-C6-3F-F3-D5-40 is not configured
+[01/23/2023 22:00:28] Perform auto configuration
+[01/23/2023 22:00:28] IPPOOL_1: 192.168.43.1-254
+[01/23/2023 22:00:28] Auto configuration succeeded: IP-Addr = 192.168.43.3
+[01/23/2023 22:00:29] DHCP Server is terminating (ignore error messages that follow)
+[01/23/2023 22:00:29] Response: offer the configured IP address (lease time = 86400)
+[01/23/2023 22:00:29] Sending a broadcast response to the client
+[01/23/2023 22:00:29] DHCP Server terminated
+[01/23/2023 22:00:29] DHCP Server V2.5.2.3 started as Application
+[01/23/2023 22:00:29] NetworkAdapter Initialization returns 0
+[01/23/2023 22:00:29] Adapter 0 with IP address 127.0.0.1 found but not used
+[01/23/2023 22:00:34] DHCP Server is terminating (ignore error messages that follow)
+[01/23/2023 22:00:34] DHCP Server terminated
+[01/23/2023 22:00:34] DHCP Server V2.5.2.3 started as Application
+[01/23/2023 22:00:34] NetworkAdapter Initialization returns 0
+[01/23/2023 22:00:34] Adapter 0 with IP address 192.168.43.49 found (pAdap=0x0227bb50)
+[01/23/2023 22:00:35] DHCP Server is terminating (ignore error messages that follow)
+[01/23/2023 22:00:35] recvfrom returns with error 10038
+[01/23/2023 22:00:35] DHCP Server terminated
+[01/23/2023 22:00:35] DHCP Server V2.5.2.3 started as Application
+[01/23/2023 22:00:35] NetworkAdapter Initialization returns 0
+[01/23/2023 22:00:35] Adapter 0 with IP address 192.168.43.49 found (pAdap=0x0227bc30)
+[01/23/2023 22:00:37] DHCP Server is terminating (ignore error messages that follow)
+[01/23/2023 22:00:37] recvfrom returns with error 10038
+[01/23/2023 22:00:37] DHCP Server terminated
+[01/23/2023 22:00:37] DHCP Server V2.5.2.3 started as Application
+[01/23/2023 22:00:37] NetworkAdapter Initialization returns 0
+[01/23/2023 22:00:37] Adapter 0 with IP address 192.168.43.49 found (pAdap=0x0227baf0)
+[01/23/2023 22:00:41] DHCP Server is terminating (ignore error messages that follow)
+[01/23/2023 22:00:41] recvfrom returns with error 10038
+[01/23/2023 22:00:41] DHCP Server terminated
+[01/25/2023 16:45:45] DHCP Server V2.5.2.3 started as Application
+[01/25/2023 16:45:45] NetworkAdapter Initialization returns 0
+[01/25/2023 16:45:45] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/25/2023 16:45:45] Adapter 1 with IP address 169.254.0.1 found (pAdap=0x0060bb60)
+[01/25/2023 16:45:54] DHCP Server is terminating (ignore error messages that follow)
+[01/25/2023 16:45:54] recvfrom returns with error 10038
+[01/25/2023 16:45:54] DHCP Server terminated
+[01/25/2023 16:45:54] DHCP Server V2.5.2.3 started as Application
+[01/25/2023 16:45:54] NetworkAdapter Initialization returns 0
+[01/25/2023 16:45:54] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/25/2023 16:45:59] DHCP Server is terminating (ignore error messages that follow)
+[01/25/2023 16:45:59] DHCP Server terminated
+[01/25/2023 16:45:59] DHCP Server V2.5.2.3 started as Application
+[01/25/2023 16:45:59] NetworkAdapter Initialization returns 0
+[01/25/2023 16:45:59] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/25/2023 16:45:59] Adapter 1 with IP address 169.254.0.1 found (pAdap=0x0060bc00)
+[01/25/2023 16:46:00] Adapter 0 has recognized an incoming DHCP request
+[01/25/2023 16:46:00] DHCP message = DHCPDISCOVER
+[01/25/2023 16:46:00]    requested options: 1 3 28
+[01/25/2023 16:46:00] Lookup client data for physical address "00-80-E1-00-00-00" / client_id "00-80-E1-00-00-00"
+[01/25/2023 16:46:00] Client 00-80-E1-00-00-00 is not configured
+[01/25/2023 16:46:00] Perform auto configuration
+[01/25/2023 16:46:00] IPPOOL_1: 169.254.0.1-255
+[01/25/2023 16:46:00] Auto configuration succeeded: IP-Addr = 169.254.0.2
+[01/25/2023 16:46:00] Response: offer the configured IP address (lease time = 86400)
+[01/25/2023 16:46:00] Sending a broadcast response to the client
+[01/25/2023 16:46:00] Connection 0: sending top queue packet
+[01/25/2023 16:46:00] Adapter 0 has recognized an incoming DHCP request
+[01/25/2023 16:46:00] DHCP message = DHCPREQUEST
+[01/25/2023 16:46:00]    requested options: 1 3 28
+[01/25/2023 16:46:00] Lookup client data for physical address "00-80-E1-00-00-00" / client_id "00-80-E1-00-00-00"
+[01/25/2023 16:46:00] Client 00-80-E1-00-00-00 is configured with the IP address 169.254.0.2
+[01/25/2023 16:46:01] Response: hand out the configured IP address (lease time = 86400)
+[01/25/2023 16:46:01] Sending a broadcast response to the client
+[01/25/2023 16:46:01] Connection 0: sending top queue packet
+[01/25/2023 18:36:20] DHCP Server is terminating (ignore error messages that follow)
+[01/25/2023 18:36:20] recvfrom returns with error 10038
+[01/25/2023 18:36:20] DHCP Server terminated
+[01/25/2023 18:36:20] DHCP Server V2.5.2.3 started as Application
+[01/25/2023 18:36:20] NetworkAdapter Initialization returns 0
+[01/25/2023 18:36:20] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/25/2023 18:36:20] Adapter 1 with IP address 169.254.0.1 found (pAdap=0x0060b940)
+[01/25/2023 18:36:53] DHCP Server is terminating (ignore error messages that follow)
+[01/25/2023 18:36:53] recvfrom returns with error 10038
+[01/25/2023 18:36:53] DHCP Server terminated
+[01/25/2023 18:36:53] DHCP Server V2.5.2.3 started as Application
+[01/25/2023 18:36:54] NetworkAdapter Initialization returns 0
+[01/25/2023 18:36:54] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/25/2023 18:36:54] Adapter 1 with IP address 169.254.0.1 found (pAdap=0x0060b980)
+[01/26/2023 00:25:54] DHCP Server is terminating (ignore error messages that follow)
+[01/26/2023 00:25:54] recvfrom returns with error 10038
+[01/26/2023 00:25:54] DHCP Server terminated
+[01/26/2023 00:25:54] DHCP Server V2.5.2.3 started as Application
+[01/26/2023 00:25:54] NetworkAdapter Initialization returns 0
+[01/26/2023 00:25:54] Adapter 0 with IP address 127.0.0.1 found but not used
+[01/26/2023 00:25:58] DHCP Server is terminating (ignore error messages that follow)
+[01/26/2023 00:25:58] DHCP Server terminated
+[01/26/2023 00:25:58] DHCP Server V2.5.2.3 started as Application
+[01/26/2023 00:25:58] NetworkAdapter Initialization returns 0
+[01/26/2023 00:25:58] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/26/2023 20:20:33] DHCP Server is terminating (ignore error messages that follow)
+[01/26/2023 20:20:34] DHCP Server terminated
+[01/26/2023 20:20:34] DHCP Server V2.5.2.3 started as Application
+[01/26/2023 20:20:35] NetworkAdapter Initialization returns 0
+[01/26/2023 20:20:35] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/26/2023 20:20:37] DHCP Server is terminating (ignore error messages that follow)
+[01/26/2023 20:20:37] DHCP Server terminated
+[01/26/2023 20:20:37] DHCP Server V2.5.2.3 started as Application
+[01/26/2023 20:20:37] NetworkAdapter Initialization returns 0
+[01/26/2023 20:20:37] Adapter 0 with IP address 127.0.0.1 found but not used
+[01/26/2023 20:20:43] DHCP Server is terminating (ignore error messages that follow)
+[01/26/2023 20:20:43] DHCP Server terminated
+[01/26/2023 20:20:43] DHCP Server V2.5.2.3 started as Application
+[01/26/2023 20:20:43] NetworkAdapter Initialization returns 0
+[01/26/2023 20:20:43] Adapter 0 with IP address 127.0.0.1 found but not used
+[01/26/2023 22:01:11] DHCP Server is terminating (ignore error messages that follow)
+[01/26/2023 22:01:11] DHCP Server terminated
+[01/26/2023 22:01:11] DHCP Server V2.5.2.3 started as Application
+[01/26/2023 22:01:11] NetworkAdapter Initialization returns 0
+[01/26/2023 22:01:11] Adapter 0 with IP address 169.254.85.237 found but not used
+[01/26/2023 22:01:17] DHCP Server is terminating (ignore error messages that follow)
+[01/26/2023 22:01:17] DHCP Server terminated
+[01/26/2023 22:01:17] DHCP Server V2.5.2.3 started as Application
+[01/26/2023 22:01:17] NetworkAdapter Initialization returns 0
+[01/26/2023 22:01:17] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/26/2023 22:01:20] DHCP Server is terminating (ignore error messages that follow)
+[01/26/2023 22:01:20] DHCP Server terminated
+[01/26/2023 22:01:20] DHCP Server V2.5.2.3 started as Application
+[01/26/2023 22:01:20] NetworkAdapter Initialization returns 0
+[01/26/2023 22:01:20] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/26/2023 22:01:27] DHCP Server is terminating (ignore error messages that follow)
+[01/26/2023 22:01:27] DHCP Server terminated
+[01/26/2023 22:01:27] DHCP Server V2.5.2.3 started as Application
+[01/26/2023 22:01:27] NetworkAdapter Initialization returns 0
+[01/26/2023 22:01:27] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/27/2023 02:59:34] DHCP Server is terminating (ignore error messages that follow)
+[01/27/2023 02:59:34] DHCP Server terminated
+[01/27/2023 02:59:34] DHCP Server V2.5.2.3 started as Application
+[01/27/2023 02:59:34] NetworkAdapter Initialization returns 0
+[01/27/2023 02:59:34] Adapter 0 with IP address 127.0.0.1 found but not used
+[01/27/2023 15:28:30] DHCP Server is terminating (ignore error messages that follow)
+[01/27/2023 15:28:30] DHCP Server terminated
+[01/27/2023 15:28:31] DHCP Server V2.5.2.3 started as Application
+[01/27/2023 15:28:31] NetworkAdapter Initialization returns 0
+[01/27/2023 15:28:31] Adapter 0 with IP address 127.0.0.1 found but not used
+[01/27/2023 15:33:19] DHCP Server is terminating (ignore error messages that follow)
+[01/27/2023 15:33:19] DHCP Server terminated
+[01/27/2023 15:33:19] DHCP Server V2.5.2.3 started as Application
+[01/27/2023 15:33:19] NetworkAdapter Initialization returns 0
+[01/27/2023 15:33:19] Adapter 0 with IP address 169.254.85.237 found but not used
+[01/27/2023 15:33:26] DHCP Server is terminating (ignore error messages that follow)
+[01/27/2023 15:33:26] DHCP Server terminated
+[01/27/2023 15:33:26] DHCP Server V2.5.2.3 started as Application
+[01/27/2023 15:33:26] NetworkAdapter Initialization returns 0
+[01/27/2023 15:33:26] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/27/2023 15:33:29] DHCP Server is terminating (ignore error messages that follow)
+[01/27/2023 15:33:29] DHCP Server terminated
+[01/27/2023 15:33:29] DHCP Server V2.5.2.3 started as Application
+[01/27/2023 15:33:29] NetworkAdapter Initialization returns 0
+[01/27/2023 15:33:29] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/27/2023 15:33:36] DHCP Server is terminating (ignore error messages that follow)
+[01/27/2023 15:33:36] DHCP Server terminated
+[01/27/2023 15:33:36] DHCP Server V2.5.2.3 started as Application
+[01/27/2023 15:33:36] NetworkAdapter Initialization returns 0
+[01/27/2023 15:33:36] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/27/2023 20:42:52] DHCP Server is terminating (ignore error messages that follow)
+[01/27/2023 20:42:52] DHCP Server terminated
+[01/27/2023 20:42:52] DHCP Server V2.5.2.3 started as Application
+[01/27/2023 20:42:52] NetworkAdapter Initialization returns 0
+[01/27/2023 20:42:52] Adapter 0 with IP address 127.0.0.1 found but not used
+[01/28/2023 09:30:03] DHCP Server is terminating (ignore error messages that follow)
+[01/28/2023 09:30:03] DHCP Server terminated
+[01/28/2023 09:30:03] DHCP Server V2.5.2.3 started as Application
+[01/28/2023 09:30:03] NetworkAdapter Initialization returns 0
+[01/28/2023 09:30:03] Adapter 0 with IP address 127.0.0.1 found but not used
+[01/28/2023 09:30:58] DHCP Server is terminating (ignore error messages that follow)
+[01/28/2023 09:30:58] DHCP Server terminated
+[01/28/2023 09:30:58] DHCP Server V2.5.2.3 started as Application
+[01/28/2023 09:30:58] NetworkAdapter Initialization returns 0
+[01/28/2023 09:30:58] Adapter 0 with IP address 169.254.85.237 found but not used
+[01/28/2023 09:31:02] DHCP Server is terminating (ignore error messages that follow)
+[01/28/2023 09:31:02] DHCP Server terminated
+[01/28/2023 09:31:02] DHCP Server V2.5.2.3 started as Application
+[01/28/2023 09:31:03] NetworkAdapter Initialization returns 0
+[01/28/2023 09:31:03] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/28/2023 09:31:06] DHCP Server is terminating (ignore error messages that follow)
+[01/28/2023 09:31:06] DHCP Server terminated
+[01/28/2023 09:31:06] DHCP Server V2.5.2.3 started as Application
+[01/28/2023 09:31:06] NetworkAdapter Initialization returns 0
+[01/28/2023 09:31:06] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/28/2023 09:31:15] DHCP Server is terminating (ignore error messages that follow)
+[01/28/2023 09:31:15] DHCP Server terminated
+[01/28/2023 09:31:15] DHCP Server V2.5.2.3 started as Application
+[01/28/2023 09:31:15] NetworkAdapter Initialization returns 0
+[01/28/2023 09:31:15] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/28/2023 09:31:28] DHCP Server is terminating (ignore error messages that follow)
+[01/28/2023 09:31:28] DHCP Server terminated
+[01/28/2023 09:31:28] DHCP Server V2.5.2.3 started as Application
+[01/28/2023 09:31:28] NetworkAdapter Initialization returns 0
+[01/28/2023 09:31:28] Adapter 0 with IP address 127.0.0.1 found but not used
+[01/28/2023 09:31:35] DHCP Server is terminating (ignore error messages that follow)
+[01/28/2023 09:31:35] DHCP Server terminated
+[01/28/2023 09:31:35] DHCP Server V2.5.2.3 started as Application
+[01/28/2023 09:31:35] NetworkAdapter Initialization returns 0
+[01/28/2023 09:31:35] Adapter 0 with IP address 127.0.0.1 found but not used
+[01/28/2023 09:31:55] DHCP Server is terminating (ignore error messages that follow)
+[01/28/2023 09:31:55] DHCP Server terminated
+[01/28/2023 09:31:55] DHCP Server V2.5.2.3 started as Application
+[01/28/2023 09:31:55] NetworkAdapter Initialization returns 0
+[01/28/2023 09:31:55] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/28/2023 09:31:58] DHCP Server is terminating (ignore error messages that follow)
+[01/28/2023 09:31:58] DHCP Server terminated
+[01/28/2023 09:31:58] DHCP Server V2.5.2.3 started as Application
+[01/28/2023 09:31:58] NetworkAdapter Initialization returns 0
+[01/28/2023 09:31:58] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/28/2023 09:33:43] DHCP Server is terminating (ignore error messages that follow)
+[01/28/2023 09:33:43] DHCP Server terminated
+[01/28/2023 09:33:43] DHCP Server V2.5.2.3 started as Application
+[01/28/2023 09:33:43] NetworkAdapter Initialization returns 0
+[01/28/2023 09:33:43] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/28/2023 10:58:00] DHCP Server is terminating (ignore error messages that follow)
+[01/28/2023 10:58:00] DHCP Server terminated
+[01/28/2023 10:58:00] DHCP Server V2.5.2.3 started as Application
+[01/28/2023 10:58:00] NetworkAdapter Initialization returns 0
+[01/28/2023 10:58:00] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/28/2023 10:58:05] DHCP Server is terminating (ignore error messages that follow)
+[01/28/2023 10:58:05] DHCP Server terminated
+[01/28/2023 10:58:05] DHCP Server V2.5.2.3 started as Application
+[01/28/2023 10:58:05] NetworkAdapter Initialization returns 0
+[01/28/2023 10:58:05] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/28/2023 10:58:05] Adapter 1 with IP address 169.254.0.1 found (pAdap=0x0060baa0)
+[01/28/2023 10:58:06] Adapter 0 has recognized an incoming DHCP request
+[01/28/2023 10:58:06] DHCP message = DHCPDISCOVER
+[01/28/2023 10:58:06]    requested options: 1 3 28
+[01/28/2023 10:58:06] Lookup client data for physical address "00-80-E1-00-00-00" / client_id "00-80-E1-00-00-00"
+[01/28/2023 10:58:06] Client 00-80-E1-00-00-00 is configured with the IP address 169.254.0.2
+[01/28/2023 10:58:06] Response: offer the configured IP address (lease time = 86400)
+[01/28/2023 10:58:06] Sending a broadcast response to the client
+[01/28/2023 10:58:06] Connection 0: sending top queue packet
+[01/28/2023 10:58:06] Adapter 0 has recognized an incoming DHCP request
+[01/28/2023 10:58:06] DHCP message = DHCPREQUEST
+[01/28/2023 10:58:06]    requested options: 1 3 28
+[01/28/2023 10:58:06] Lookup client data for physical address "00-80-E1-00-00-00" / client_id "00-80-E1-00-00-00"
+[01/28/2023 10:58:06] Client 00-80-E1-00-00-00 is configured with the IP address 169.254.0.2
+[01/28/2023 10:58:07] Response: hand out the configured IP address (lease time = 86400)
+[01/28/2023 10:58:07] Sending a broadcast response to the client
+[01/28/2023 10:58:07] Connection 0: sending top queue packet
+[01/28/2023 11:15:23] DHCP Server V2.5.2.3 started as Application
+[01/28/2023 11:15:23] NetworkAdapter Initialization returns 0
+[01/28/2023 11:15:23] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/28/2023 11:15:23] Adapter 1 with IP address 169.254.0.1 found (pAdap=0x023127e8)
+[01/28/2023 11:15:28] DHCP Server is terminating (ignore error messages that follow)
+[01/28/2023 11:15:28] recvfrom returns with error 10038
+[01/28/2023 11:15:28] DHCP Server terminated
+[01/28/2023 11:15:28] DHCP Server V2.5.2.3 started as Application
+[01/28/2023 11:15:28] NetworkAdapter Initialization returns 0
+[01/28/2023 11:15:28] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/28/2023 11:15:33] DHCP Server is terminating (ignore error messages that follow)
+[01/28/2023 11:15:33] DHCP Server terminated
+[01/28/2023 11:15:33] DHCP Server V2.5.2.3 started as Application
+[01/28/2023 11:15:33] NetworkAdapter Initialization returns 0
+[01/28/2023 11:15:33] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/28/2023 11:15:33] Adapter 1 with IP address 169.254.0.1 found (pAdap=0x023127e8)
+[01/28/2023 11:15:33] Adapter 0 has recognized an incoming DHCP request
+[01/28/2023 11:15:33] DHCP message = DHCPDISCOVER
+[01/28/2023 11:15:33]    requested options: 1 3 28
+[01/28/2023 11:15:33] Lookup client data for physical address "00-80-E1-00-00-00" / client_id "00-80-E1-00-00-00"
+[01/28/2023 11:15:33] Client 00-80-E1-00-00-00 is configured with the IP address 169.254.0.2
+[01/28/2023 11:15:33] Response: offer the configured IP address (lease time = 86400)
+[01/28/2023 11:15:33] Sending a broadcast response to the client
+[01/28/2023 11:15:33] Connection 0: sending top queue packet
+[01/28/2023 11:15:33] Adapter 0 has recognized an incoming DHCP request
+[01/28/2023 11:15:33] DHCP message = DHCPREQUEST
+[01/28/2023 11:15:33]    requested options: 1 3 28
+[01/28/2023 11:15:33] Lookup client data for physical address "00-80-E1-00-00-00" / client_id "00-80-E1-00-00-00"
+[01/28/2023 11:15:33] Client 00-80-E1-00-00-00 is configured with the IP address 169.254.0.2
+[01/28/2023 11:15:34] Response: hand out the configured IP address (lease time = 86400)
+[01/28/2023 11:15:34] Sending a broadcast response to the client
+[01/28/2023 11:15:34] Connection 0: sending top queue packet
+[01/28/2023 11:20:30] DHCP Server is terminating (ignore error messages that follow)
+[01/28/2023 11:20:30] recvfrom returns with error 10038
+[01/28/2023 11:20:30] DHCP Server terminated
+[01/28/2023 11:20:30] DHCP Server V2.5.2.3 started as Application
+[01/28/2023 11:20:30] NetworkAdapter Initialization returns 0
+[01/28/2023 11:20:30] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/28/2023 11:20:30] Adapter 1 with IP address 169.254.0.1 found (pAdap=0x023127e8)
+[01/28/2023 11:20:33] DHCP Server is terminating (ignore error messages that follow)
+[01/28/2023 11:20:33] recvfrom returns with error 10038
+[01/28/2023 11:20:33] DHCP Server terminated
+[01/28/2023 11:20:33] DHCP Server V2.5.2.3 started as Application
+[01/28/2023 11:20:33] NetworkAdapter Initialization returns 0
+[01/28/2023 11:20:33] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/28/2023 11:20:33] Adapter 1 with IP address 169.254.0.1 found (pAdap=0x023127e8)
+[01/28/2023 11:20:39] DHCP Server is terminating (ignore error messages that follow)
+[01/28/2023 11:20:39] recvfrom returns with error 10038
+[01/28/2023 11:20:39] DHCP Server terminated
+[01/28/2023 11:20:39] DHCP Server V2.5.2.3 started as Application
+[01/28/2023 11:20:39] NetworkAdapter Initialization returns 0
+[01/28/2023 11:20:39] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/28/2023 11:20:50] DHCP Server is terminating (ignore error messages that follow)
+[01/28/2023 11:20:50] DHCP Server terminated
+[01/28/2023 11:20:50] DHCP Server V2.5.2.3 started as Application
+[01/28/2023 11:20:50] NetworkAdapter Initialization returns 0
+[01/28/2023 11:20:50] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/28/2023 11:20:55] DHCP Server is terminating (ignore error messages that follow)
+[01/28/2023 11:20:55] DHCP Server terminated
+[01/28/2023 11:20:55] DHCP Server V2.5.2.3 started as Application
+[01/28/2023 11:20:55] NetworkAdapter Initialization returns 0
+[01/28/2023 11:20:55] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/28/2023 11:20:55] Adapter 1 with IP address 169.254.0.1 found (pAdap=0x023127e8)
+[01/28/2023 11:20:59] DHCP Server is terminating (ignore error messages that follow)
+[01/28/2023 11:20:59] recvfrom returns with error 10038
+[01/28/2023 11:20:59] DHCP Server terminated
+[01/28/2023 11:20:59] DHCP Server V2.5.2.3 started as Application
+[01/28/2023 11:20:59] NetworkAdapter Initialization returns 0
+[01/28/2023 11:20:59] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/28/2023 11:20:59] Adapter 1 with IP address 169.254.0.1 found (pAdap=0x023127e8)
+[01/28/2023 11:20:59] Adapter 0 has recognized an incoming DHCP request
+[01/28/2023 11:20:59] DHCP message = DHCPDISCOVER
+[01/28/2023 11:20:59]    requested options: 1 3 28
+[01/28/2023 11:20:59] Lookup client data for physical address "00-80-E1-00-00-00" / client_id "00-80-E1-00-00-00"
+[01/28/2023 11:20:59] Client 00-80-E1-00-00-00 is configured with the IP address 169.254.0.2
+[01/28/2023 11:21:00] Response: offer the configured IP address (lease time = 86400)
+[01/28/2023 11:21:00] Sending a broadcast response to the client
+[01/28/2023 11:21:00] Connection 0: sending top queue packet
+[01/28/2023 11:21:00] Adapter 0 has recognized an incoming DHCP request
+[01/28/2023 11:21:00] DHCP message = DHCPREQUEST
+[01/28/2023 11:21:00]    requested options: 1 3 28
+[01/28/2023 11:21:00] Lookup client data for physical address "00-80-E1-00-00-00" / client_id "00-80-E1-00-00-00"
+[01/28/2023 11:21:00] Client 00-80-E1-00-00-00 is configured with the IP address 169.254.0.2
+[01/28/2023 11:21:00] Response: hand out the configured IP address (lease time = 86400)
+[01/28/2023 11:21:00] Sending a broadcast response to the client
+[01/28/2023 11:21:00] Connection 0: sending top queue packet
+[01/28/2023 11:22:54] DHCP Server is terminating (ignore error messages that follow)
+[01/28/2023 11:22:54] recvfrom returns with error 10038
+[01/28/2023 11:22:54] DHCP Server terminated
+[01/28/2023 11:22:54] DHCP Server V2.5.2.3 started as Application
+[01/28/2023 11:22:54] NetworkAdapter Initialization returns 0
+[01/28/2023 11:22:54] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/28/2023 11:22:54] Adapter 1 with IP address 169.254.0.1 found (pAdap=0x023127e8)
+[01/28/2023 11:23:00] DHCP Server is terminating (ignore error messages that follow)
+[01/28/2023 11:23:00] recvfrom returns with error 10038
+[01/28/2023 11:23:00] DHCP Server terminated
+[01/28/2023 11:23:00] DHCP Server V2.5.2.3 started as Application
+[01/28/2023 11:23:00] NetworkAdapter Initialization returns 0
+[01/28/2023 11:23:00] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/28/2023 11:23:00] Adapter 1 with IP address 169.254.0.1 found (pAdap=0x023127e8)
+[01/28/2023 11:24:45] DHCP Server is terminating (ignore error messages that follow)
+[01/28/2023 11:24:45] recvfrom returns with error 10038
+[01/28/2023 11:24:45] DHCP Server terminated
+[01/28/2023 11:24:45] DHCP Server V2.5.2.3 started as Application
+[01/28/2023 11:24:45] NetworkAdapter Initialization returns 0
+[01/28/2023 11:24:45] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/28/2023 11:24:45] Adapter 1 with IP address 169.254.0.1 found (pAdap=0x023127e8)
+[01/28/2023 11:25:26] DHCP Server is terminating (ignore error messages that follow)
+[01/28/2023 11:25:26] recvfrom returns with error 10038
+[01/28/2023 11:25:26] DHCP Server terminated
+[01/28/2023 11:25:26] DHCP Server V2.5.2.3 started as Application
+[01/28/2023 11:25:26] NetworkAdapter Initialization returns 0
+[01/28/2023 11:25:26] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/28/2023 11:25:34] DHCP Server is terminating (ignore error messages that follow)
+[01/28/2023 11:25:34] DHCP Server terminated
+[01/28/2023 11:25:34] DHCP Server V2.5.2.3 started as Application
+[01/28/2023 11:25:34] NetworkAdapter Initialization returns 0
+[01/28/2023 11:25:34] Adapter 0 with IP address 192.168.43.49 found but not used
+[01/28/2023 11:25:34] Adapter 1 with IP address 169.254.0.1 found (pAdap=0x023127e8)
+[01/28/2023 11:25:34] Adapter 0 has recognized an incoming DHCP request
+[01/28/2023 11:25:34] DHCP message = DHCPDISCOVER
+[01/28/2023 11:25:34]    requested options: 1 3 28
+[01/28/2023 11:25:34] Lookup client data for physical address "00-80-E1-00-00-00" / client_id "00-80-E1-00-00-00"
+[01/28/2023 11:25:34] Client 00-80-E1-00-00-00 is configured with the IP address 169.254.0.2
+[01/28/2023 11:25:35] Response: offer the configured IP address (lease time = 86400)
+[01/28/2023 11:25:35] Sending a broadcast response to the client
+[01/28/2023 11:25:35] Connection 0: sending top queue packet
+[01/28/2023 11:25:35] Adapter 0 has recognized an incoming DHCP request
+[01/28/2023 11:25:35] DHCP message = DHCPREQUEST
+[01/28/2023 11:25:35]    requested options: 1 3 28
+[01/28/2023 11:25:35] Lookup client data for physical address "00-80-E1-00-00-00" / client_id "00-80-E1-00-00-00"
+[01/28/2023 11:25:35] Client 00-80-E1-00-00-00 is configured with the IP address 169.254.0.2
+[01/28/2023 11:25:35] Response: hand out the configured IP address (lease time = 86400)
+[01/28/2023 11:25:35] Sending a broadcast response to the client
+[01/28/2023 11:25:35] Connection 0: sending top queue packet
