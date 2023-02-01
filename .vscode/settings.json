@@ -27,7 +27,8 @@
         "gpio_f7.h": "c",
         "stm32f7xx.h": "c",
         "leds.h": "c",
-        "usart3.h": "c"
+        "usart3.h": "c",
+        "dltuc.h": "c"
     },
     "cortex-debug.variableUseNaturalFormat": true
 }

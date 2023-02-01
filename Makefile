@@ -14,7 +14,8 @@ C_SOURCES += Application/syscalls.c
 C_SOURCES += Application/sysmem.c
 C_SOURCES += Drivers/GPIO/GPIO_f7.c
 C_SOURCES += Drivers/System/System.c
-C_SOURCES += Drivers/usart3/usart3.c
+C_SOURCES += Middlewares/DLTuc_libFiles/DLTuc.c
+C_SOURCES += Drivers/usart3/UART3_dlt.c
 
 # ASM sources
 ASM_SOURCES += _startup_stm32f767zitx.s
@@ -53,6 +54,7 @@ C_INCLUDES += -IDrivers/CMSIS/Include
 C_INCLUDES += -IDrivers/GPIO
 C_INCLUDES += -IDrivers/System
 C_INCLUDES += -IDrivers/usart3
+C_INCLUDES += -IMiddlewares/DLTuc_libFiles
 
 # compile gcc flags
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
