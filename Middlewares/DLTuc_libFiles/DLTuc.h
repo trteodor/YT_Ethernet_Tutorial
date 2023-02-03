@@ -28,6 +28,10 @@
  * Debug dlt log level macros start
  * *******************************************************************************************
  * */
+
+#define logs_enable
+
+
 #define DL_FATALd   0x01
 #define DL_ERRORd  0x02
 #define DL_WARNd    0x03
@@ -196,7 +200,7 @@ void DLTuc_LogOutVarArgs(DltLogLevel_t Level, uint32_t AppId, uint32_t ContextId
 
 
 
-
+#ifdef logs_enable
 
 /**!
  * \brief DEBUGL(level, str, ...)
@@ -231,5 +235,12 @@ void DLTuc_LogOutVarArgs(DltLogLevel_t Level, uint32_t AppId, uint32_t ContextId
 	if(log_level <= DLT_LOG_ENABLE_LEVEL){\
 		DLTuc_LogOutVarArgs(log_level, DLT_LOG_APPID_VALUE, DLT_LOG_CONTEX_VALUE,(uint8_t *)"FILE:%s() FUN:%s() LOG: "str,__FILE__,__FUNCTION__,##__VA_ARGS__);\
 	}
+
+#else
+
+DEBUGL(log_level, str, ...)
+DEBUGF(log_level, str, ...)
+DEBUGFF(log_level, str, ...)
+#endif
 
 #endif /* INC_DLT_LOGS_MCU_H_ */

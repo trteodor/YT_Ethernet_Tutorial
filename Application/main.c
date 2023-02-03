@@ -10,12 +10,15 @@ int main(void)
     PLL_Config200Mhz();
     ConfigSysTick1ms();
     UART3InitTransmitWithDMAand_ucDLTlib();
-    static char MyMessage[] = "Hello\n\r";
+
 
     while(1)
     {
         DelayMs(1000);
         tooglePIN(GPIOB,GREEN_LED);
-        DEBUGL(DL_INFO,"HelloWorld!");
+        DEBUGL(DL_INFO,"Hello Ethernet World!");
+        DEBUGL(DL_INFO,"Another Diffrent Log!");
+        DEBUGL(DL_INFO,"This is crazy!!");
     }
 }
+
