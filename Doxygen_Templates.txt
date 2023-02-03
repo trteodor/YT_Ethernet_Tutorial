@@ -1,0 +1,9 @@
+/*!
+ ************************************************************************************************
+ * \brief ETH_ReadPHYRegister
+ * \details --
+ * \param RingBuffer_t *Buf 
+ * \param out MessageSize
+ * \param out MessagePointer
+ * 
+ * */
