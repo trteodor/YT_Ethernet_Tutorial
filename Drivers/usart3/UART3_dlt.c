@@ -29,6 +29,10 @@ void UART3_DMA_Transmit(uint8_t *Buff, uint8_t size)
 	DMA1_Stream3->CR |= DMA_SxCR_EN;
 }
 
+void UpdateDltTimeStamp(uint32_t TickCount)
+{
+	DLTuc_UpdateTimeStampMs(TickCount);
+}
 
 void UART3InitTransmitWithDMAand_ucDLTlib(void)
 {
@@ -55,5 +59,6 @@ void UART3InitTransmitWithDMAand_ucDLTlib(void)
 
 	/*Register Low Level Transmit function for ucDltLibrary*/
 	DLTuc_RegisterTransmitSerialDataCallback(UART3_DMA_Transmit);
+	RegisterSysTickCallBack(UpdateDltTimeStamp);
 	/*Now ucDLTlib is ready to work!*/
 }

@@ -1,4 +1,4 @@
-
+#include "System.h"
 #include "eth_nuc_f767.h"
 #include "GPIO_f7.h"
 
@@ -87,6 +87,14 @@ void ETH_gpio_rcc_init(void)
 	RCC->AHB1ENR |= RCC_AHB1ENR_ETHMACEN;
 	SET_BIT(RCC->AHB1ENR, RCC_AHB1ENR_ETHMACRXEN);
 	SET_BIT(RCC->AHB1ENR, RCC_AHB1ENR_ETHMACTXEN);
+
+	/*Enable SYSCFG*/
+	RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
+
+	/*Select RMII*/
+	SYSCFG->PMC &=~(SYSCFG_PMC_MII_RMII_SEL);
+	SYSCFG->PMC |=SYSCFG_PMC_MII_RMII_SEL;
+ 
 }
 
 
@@ -120,6 +128,7 @@ ETH_CallStatus_Type ETH_WritePHYRegister(uint16_t PHYAddress, uint16_t PHYReg, u
 		{
 			return (uint16_t)ERR;
 		}
+    tmpreg =  ETH->MACMIIAR;
 	}
 
 	return OK;
@@ -170,10 +179,11 @@ ETH_CallStatus_Type  ETH_ReadPHYRegister(uint16_t PHYAddress, uint16_t PHYReg, u
   */
 static void ETH_Delay(__IO uint32_t nCount)
 {
-  __IO uint32_t index = 0; 
-  for(index = nCount; index != 0; index--)
-  {
-  }
+  DelayMs(nCount);
+  // __IO uint32_t index = 0; 
+  // for(index = nCount; index != 0; index--)
+  // {
+  // }
 }
 
 
@@ -417,6 +427,111 @@ uint32_t ETH_GetReceivedFrame(void)
 
 
 
+
+/**
+  * @brief  Fills each ETH_InitStruct member with its default value.
+  * @param  ETH_InitStruct: pointer to a ETH_InitTypeDef structure which will be initialized.
+  * @retval None
+  */
+void ETH_StructInit(ETH_InitTypeDef* ETH_InitStruct)
+{
+  /* ETH_InitStruct members default value */
+  /*------------------------   MAC Configuration   ---------------------------*/
+  
+  /* PHY Auto-negotiation enabled */
+  ETH_InitStruct->ETH_AutoNegotiation = ETH_AutoNegotiation_Enable;
+  /* MAC watchdog enabled: cuts off long frame */
+  ETH_InitStruct->ETH_Watchdog = ETH_Watchdog_Enable;
+  /* MAC Jabber enabled in Half-duplex mode */
+  ETH_InitStruct->ETH_Jabber = ETH_Jabber_Enable;
+  /* Ethernet interframe gap set to 96 bits */
+  ETH_InitStruct->ETH_InterFrameGap = ETH_InterFrameGap_96Bit;
+  /* Carrier Sense Enabled in Half-Duplex mode */
+  ETH_InitStruct->ETH_CarrierSense = ETH_CarrierSense_Enable;
+  /* PHY speed configured to 100Mbit/s */
+  ETH_InitStruct->ETH_Speed = ETH_Speed_100M; 
+  /* Receive own Frames in Half-Duplex mode enabled */
+  ETH_InitStruct->ETH_ReceiveOwn = ETH_ReceiveOwn_Enable;
+  /* MAC MII loopback disabled */ 
+  ETH_InitStruct->ETH_LoopbackMode = ETH_LoopbackMode_Disable;
+  /* Full-Duplex mode selected */
+  ETH_InitStruct->ETH_Mode = ETH_Mode_FullDuplex;
+  /* IPv4 and TCP/UDP/ICMP frame Checksum Offload disabled */
+  ETH_InitStruct->ETH_ChecksumOffload = ETH_ChecksumOffload_Disable;
+  /* Retry Transmission enabled for half-duplex mode */ 
+  ETH_InitStruct->ETH_RetryTransmission = ETH_RetryTransmission_Enable;
+  /* Automatic PAD/CRC strip disabled*/
+  ETH_InitStruct->ETH_AutomaticPadCRCStrip = ETH_AutomaticPadCRCStrip_Disable;
+  /* half-duplex mode retransmission Backoff time_limit = 10 slot times*/ 
+  ETH_InitStruct->ETH_BackOffLimit = ETH_BackOffLimit_10;
+  /* half-duplex mode Deferral check disabled */
+  ETH_InitStruct->ETH_DeferralCheck = ETH_DeferralCheck_Disable;
+  /* Receive all frames disabled */
+  ETH_InitStruct->ETH_ReceiveAll = ETH_ReceiveAll_Disable;
+  /* Source address filtering (on the optional MAC addresses) disabled */
+  ETH_InitStruct->ETH_SourceAddrFilter = ETH_SourceAddrFilter_Disable;
+  /* Do not forward control frames that do not pass the address filtering */
+  ETH_InitStruct->ETH_PassControlFrames = ETH_PassControlFrames_BlockAll;
+  /* Disable reception of Broadcast frames */
+  ETH_InitStruct->ETH_BroadcastFramesReception = ETH_BroadcastFramesReception_Disable;
+  /* Normal Destination address filtering (not reverse addressing) */
+  ETH_InitStruct->ETH_DestinationAddrFilter = ETH_DestinationAddrFilter_Normal;
+  /* Promiscuous address filtering mode disabled */
+  ETH_InitStruct->ETH_PromiscuousMode = ETH_PromiscuousMode_Disable;
+  /* Perfect address filtering for multicast addresses */
+  ETH_InitStruct->ETH_MulticastFramesFilter = ETH_MulticastFramesFilter_Perfect;
+  /* Perfect address filtering for unicast addresses */
+  ETH_InitStruct->ETH_UnicastFramesFilter = ETH_UnicastFramesFilter_Perfect;
+  /* Initialize hash table high and low regs */
+  ETH_InitStruct->ETH_HashTableHigh = 0x0;
+  ETH_InitStruct->ETH_HashTableLow = 0x0;
+  /* Flow control config (flow control disabled)*/
+  ETH_InitStruct->ETH_PauseTime = 0x0;
+  ETH_InitStruct->ETH_ZeroQuantaPause = ETH_ZeroQuantaPause_Disable;
+  ETH_InitStruct->ETH_PauseLowThreshold = ETH_PauseLowThreshold_Minus4;
+  ETH_InitStruct->ETH_UnicastPauseFrameDetect = ETH_UnicastPauseFrameDetect_Disable;
+  ETH_InitStruct->ETH_ReceiveFlowControl = ETH_ReceiveFlowControl_Disable;
+  ETH_InitStruct->ETH_TransmitFlowControl = ETH_TransmitFlowControl_Disable;
+  /* VLANtag config (VLAN field not checked) */
+  ETH_InitStruct->ETH_VLANTagComparison = ETH_VLANTagComparison_16Bit;
+  ETH_InitStruct->ETH_VLANTagIdentifier = 0x0;
+  
+  /*---------------------- DMA Configuration   -------------------------------*/
+  
+  /* Drops frames with with TCP/IP checksum errors */
+  ETH_InitStruct->ETH_DropTCPIPChecksumErrorFrame = ETH_DropTCPIPChecksumErrorFrame_Disable; 
+  /* Store and forward mode enabled for receive */
+  ETH_InitStruct->ETH_ReceiveStoreForward = ETH_ReceiveStoreForward_Enable;
+  /* Flush received frame that created FIFO overflow */
+  ETH_InitStruct->ETH_FlushReceivedFrame = ETH_FlushReceivedFrame_Enable;
+  /* Store and forward mode enabled for transmit */
+  ETH_InitStruct->ETH_TransmitStoreForward = ETH_TransmitStoreForward_Enable;  
+  /* Threshold TXFIFO level set to 64 bytes (used when threshold mode is enabled) */
+  ETH_InitStruct->ETH_TransmitThresholdControl = ETH_TransmitThresholdControl_64Bytes;
+  /* Disable forwarding frames with errors (short frames, CRC,...)*/
+  ETH_InitStruct->ETH_ForwardErrorFrames = ETH_ForwardErrorFrames_Disable;
+  /* Disable undersized good frames */
+  ETH_InitStruct->ETH_ForwardUndersizedGoodFrames = ETH_ForwardUndersizedGoodFrames_Disable;
+  /* Threshold RXFIFO level set to 64 bytes (used when Cut through mode is enabled) */
+  ETH_InitStruct->ETH_ReceiveThresholdControl = ETH_ReceiveThresholdControl_64Bytes;
+  /* Disable Operate on second frame (transmit a second frame to FIFO without 
+  waiting status of previous frame*/
+  ETH_InitStruct->ETH_SecondFrameOperate = ETH_SecondFrameOperate_Disable;
+  /* DMA works on 32-bit aligned start source and destinations addresses */
+  ETH_InitStruct->ETH_AddressAlignedBeats = ETH_AddressAlignedBeats_Enable;
+  /* Enabled Fixed Burst Mode (mix of INC4, INC8, INC16 and SINGLE DMA transactions */
+  ETH_InitStruct->ETH_FixedBurst = ETH_FixedBurst_Enable;
+  /* DMA transfer max burst length = 32 beats = 32 x 32bits */
+  ETH_InitStruct->ETH_RxDMABurstLength = ETH_RxDMABurstLength_32Beat;
+  ETH_InitStruct->ETH_TxDMABurstLength = ETH_TxDMABurstLength_32Beat;
+  /* DMA Ring mode skip length = 0 */
+  ETH_InitStruct->ETH_DescriptorSkipLength = 0x0; 
+  /* Equal priority (round-robin) between transmit and receive DMA engines */
+  ETH_InitStruct->ETH_DMAArbitration = ETH_DMAArbitration_RoundRobin_RxTx_1_1;
+}
+
+
+
 /**
   * @brief  Initializes the ETHERNET peripheral according to the specified
   *   parameters in the ETH_InitStruct .
@@ -431,6 +546,22 @@ ETH_CallStatus_Type ETH_Init(ETH_InitTypeDef* ETH_InitStruct, uint16_t PHYAddres
   uint32_t RegValue = 0, tmpreg = 0;
   uint32_t hclk = SYSTEM_CORE_CLOCK_HZ_VALUE;
   __IO uint32_t timeout = 0, err = OK;
+
+	/*Software reset ETH MAC_DMA*/
+	ETH->DMABMR |=ETH_DMABMR_SR;
+
+	timeout =  GetSysTime();
+
+	/*Wait for software reset*/
+	while((ETH->DMABMR  & ETH_DMABMR_SR) != (uint32_t)RESET)
+	{
+		/*Check for timeout*/
+		if((GetSysTime() - timeout) >  ETH_TIMEOUT_SWRESET)
+		{
+      break; /*dk how to handle*/
+		}
+	}
+
 
   /*-------------------------------- MAC Config ------------------------------*/
   /*---------------------- ETHERNET MACMIIAR Configuration -------------------*/
@@ -567,6 +698,28 @@ error:
     ETH_InitStruct->ETH_Speed = ETH_Speed_100M;
   }
  
+
+   /*------------------------ ETHERNET MACCR Configuration --------------------*/
+    /* Get the ETHERNET MACCR value */
+    tmpreg = ETH->MACCR;
+    /* Clear WD, PCE, PS, TE and RE bits */
+    tmpreg &= MACCR_CLEAR_MASK;
+
+    tmpreg |= (uint32_t)(ETH_InitStruct->ETH_Watchdog | ETH_InitStruct->ETH_Jabber | 
+                          ETH_InitStruct->ETH_InterFrameGap |ETH_InitStruct->ETH_CarrierSense |
+                          ETH_InitStruct->ETH_Speed | ETH_InitStruct->ETH_ReceiveOwn |
+                          ETH_InitStruct->ETH_LoopbackMode | ETH_InitStruct->ETH_Mode | 
+                          ETH_InitStruct->ETH_ChecksumOffload | ETH_InitStruct->ETH_RetryTransmission | 
+                          ETH_InitStruct->ETH_AutomaticPadCRCStrip | ETH_InitStruct->ETH_BackOffLimit | 
+                          ETH_InitStruct->ETH_DeferralCheck);
+    /* Write to ETHERNET MACCR */
+    ETH->MACCR = (uint32_t)tmpreg;
+    
+  /* Wait until the write operation will be taken into account :
+   at least four TX_CLK/RX_CLK clock cycles */
+    tmpreg = ETH->MACCR;
+    ETH_Delay(ETH_REG_WRITE_DELAY);
+    ETH->MACCR = tmpreg; 
   /*----------------------- ETHERNET MACFFR Configuration --------------------*/ 
   ETH->MACFFR = (uint32_t)(ETH_InitStruct->ETH_ReceiveAll | ETH_InitStruct->ETH_SourceAddrFilter |
                            ETH_InitStruct->ETH_PassControlFrames | ETH_InitStruct->ETH_BroadcastFramesReception | 
@@ -685,18 +838,18 @@ error:
  * \return Status if "OK" Link connected, "ERR" if is disconnect
  * 
  * */
-ETH_CallStatus_Type GetLinkState(void)
+ETH_CallStatus_Type GetLinkState(uint16_t PHYAddress)
 {
   uint32_t readval = 0;
   
   /* Read Status register  */
-  if(ETH_ReadPHYRegister(LAN8742A_PHY_ADDRESS, PHY_BSR, &readval) != OK)
+  if(ETH_ReadPHYRegister(PHYAddress, PHY_BSR, &readval) != OK)
   {
     return ERR;
   }
   
   /* Read Status register again */
-  if(ETH_ReadPHYRegister(LAN8742A_PHY_ADDRESS, PHY_BSR, &readval) != OK)
+  if(ETH_ReadPHYRegister(PHYAddress, PHY_BSR, &readval) != OK)
   {
     return ERR;
   }
@@ -707,5 +860,5 @@ ETH_CallStatus_Type GetLinkState(void)
     return ERR;    
   }
 
-	return OK; //PHY_LINKED_STATUS should be TRUE
+	return OK; //PHY_LINKED_STATUS should be TRUE (cable connected)
 }

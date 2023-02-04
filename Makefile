@@ -35,12 +35,12 @@ Config_SRCC := $(foreach dir,$(Dir_config_dir),$(wildcard $(dir)*.c))
 
 Config_IncDirs = $(foreach dir, $(Dir_config_dir), $(addprefix -I, $(dir)))
 
-$(info Includy: $(Config_IncDirs) )
-$(info --------------- )
-$(info --------------- )
-$(info $(Config_SRCC) )
-$(info --------------- )
-$(info --------------- )
+# $(info Includy: $(Config_IncDirs) )
+# $(info --------------- )
+# $(info --------------- )
+# $(info $(Config_SRCC) )
+# $(info --------------- )
+# $(info --------------- )
 
 ######################################
 # source

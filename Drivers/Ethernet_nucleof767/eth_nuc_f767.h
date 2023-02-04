@@ -20,11 +20,14 @@
 /* LAN8742A PHY Address*/
 #define LAN8742A_PHY_ADDRESS            0x00U
 /* PHY Reset delay these values are based on a 1 ms Systick interrupt*/ 
-#define PHY_RESET_DELAY                 0x00000FFFU
+#define PHY_RESET_DELAY                 0x0000000F
 /* PHY Configuration delay */
-#define PHY_CONFIG_DELAY                0x00000FFFU
+#define PHY_CONFIG_DELAY                0x0000000F
 /* PHY Configuration delay */ 
-#define ETH_REG_WRITE_DELAY ((uint32_t)0x0000FFFF)
+#define ETH_REG_WRITE_DELAY ((uint32_t)0x0000000F)
+
+
+#define ETH_TIMEOUT_SWRESET						  ((uint32_t)500)
 
 // #define PHY_READ_TO                     0x0000FFFFU
 // #define PHY_WRITE_TO                    0x0000FFFFU
@@ -1523,7 +1526,8 @@ typedef struct  {
 
 
 /*export functions*/
-ETH_CallStatus_Type GetLinkState(void);
+ETH_CallStatus_Type GetLinkState(uint16_t PHYAddress);
+void ETH_StructInit(ETH_InitTypeDef* ETH_InitStruct);
 ETH_CallStatus_Type ETH_Init(ETH_InitTypeDef* ETH_InitStruct, uint16_t PHYAddress);
 ETH_CallStatus_Type ETH_CheckFrameAvaibility(void);
 uint32_t ETH_Prepare_Transmit_Descriptors(uint16_t FrameLength);
