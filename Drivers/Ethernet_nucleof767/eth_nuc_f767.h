@@ -1,6 +1,8 @@
 #ifndef __ETH_NUCLEO_DRIVER_
 #define __ETH_NUCLEO_DRIVER_
 
+#include "stm32f7xx.h"
+
 
 /* *************************************************************************************************/
 /* ################## Ethernet peripheral configuration for NUCLEO 144 board ##################### */
@@ -24,8 +26,8 @@
 /* PHY Configuration delay */ 
 #define ETH_REG_WRITE_DELAY ((uint32_t)0x0000FFFF)
 
-#define PHY_READ_TO                     0x0000FFFFU
-#define PHY_WRITE_TO                    0x0000FFFFU
+// #define PHY_READ_TO                     0x0000FFFFU
+// #define PHY_WRITE_TO                    0x0000FFFFU
 /* *************************************************************************************************/
 /*PHY DEFINES SECTION START LAN8720*/
 /* *************************************************************************************************/
@@ -37,16 +39,16 @@
 #define PHY_BCR                         ((uint16_t)0x0000U)    /*!< Transceiver Basic Control Register   */
 #define PHY_BSR                         ((uint16_t)0x0001U)    /*!< Transceiver Basic Status Register    */
  
-#define PHY_RESET                       ((uint16_t)0x8000U)  /*!< PHY Reset */
-#define PHY_LOOPBACK                    ((uint16_t)0x4000U)  /*!< Select loop-back mode */
-#define PHY_FULLDUPLEX_100M             ((uint16_t)0x2100U)  /*!< Set the full-duplex mode at 100 Mb/s */
-#define PHY_HALFDUPLEX_100M             ((uint16_t)0x2000U)  /*!< Set the half-duplex mode at 100 Mb/s */
-#define PHY_FULLDUPLEX_10M              ((uint16_t)0x0100U)  /*!< Set the full-duplex mode at 10 Mb/s  */
-#define PHY_HALFDUPLEX_10M              ((uint16_t)0x0000U)  /*!< Set the half-duplex mode at 10 Mb/s  */
-#define PHY_AUTONEGOTIATION             ((uint16_t)0x1000U)  /*!< Enable auto-negotiation function     */
-#define PHY_RESTART_AUTONEGOTIATION     ((uint16_t)0x0200U)  /*!< Restart auto-negotiation function    */
-#define PHY_POWERDOWN                   ((uint16_t)0x0800U)  /*!< Select the power down mode           */
-#define PHY_ISOLATE                     ((uint16_t)0x0400U)  /*!< Isolate PHY from MII                 */
+// #define PHY_RESET                       ((uint16_t)0x8000U)  /*!< PHY Reset */
+// #define PHY_LOOPBACK                    ((uint16_t)0x4000U)  /*!< Select loop-back mode */
+// #define PHY_FULLDUPLEX_100M             ((uint16_t)0x2100U)  /*!< Set the full-duplex mode at 100 Mb/s */
+// #define PHY_HALFDUPLEX_100M             ((uint16_t)0x2000U)  /*!< Set the half-duplex mode at 100 Mb/s */
+// #define PHY_FULLDUPLEX_10M              ((uint16_t)0x0100U)  /*!< Set the full-duplex mode at 10 Mb/s  */
+// #define PHY_HALFDUPLEX_10M              ((uint16_t)0x0000U)  /*!< Set the half-duplex mode at 10 Mb/s  */
+// #define PHY_AUTONEGOTIATION             ((uint16_t)0x1000U)  /*!< Enable auto-negotiation function     */
+// #define PHY_RESTART_AUTONEGOTIATION     ((uint16_t)0x0200U)  /*!< Restart auto-negotiation function    */
+// #define PHY_POWERDOWN                   ((uint16_t)0x0800U)  /*!< Select the power down mode           */
+// #define PHY_ISOLATE                     ((uint16_t)0x0400U)  /*!< Isolate PHY from MII                 */
 
 #define PHY_AUTONEGO_COMPLETE           ((uint16_t)0x0020U)  /*!< Auto-Negotiation process completed   */
 #define PHY_LINKED_STATUS               ((uint16_t)0x0004U)  /*!< Valid link established               */
@@ -74,7 +76,7 @@
 
 
 
-
+#define USE_ENHANCED_DMA_DESCRIPTORS
 
 
 
@@ -101,17 +103,17 @@
 #define PHY_Jabber_detection            ((uint16_t)0x0002)      /*!< Jabber condition detected */
 
 
-/* Bit definition for Ethernet MAC MII Address Register */
-#define ETH_MACMIIAR_PA   ((uint32_t)0x0000F800)  /* Physical layer address */ 
-#define ETH_MACMIIAR_MR   ((uint32_t)0x000007C0)  /* MII register in the selected PHY */ 
-#define ETH_MACMIIAR_CR   ((uint32_t)0x0000001C)  /* CR clock range: 6 cases */ 
-  #define ETH_MACMIIAR_CR_Div42   ((uint32_t)0x00000000)  /* HCLK:60-100 MHz; MDC clock= HCLK/42 */
-  #define ETH_MACMIIAR_CR_Div62   ((uint32_t)0x00000004)  /* HCLK:100-150 MHz; MDC clock= HCLK/62 */
-  #define ETH_MACMIIAR_CR_Div16   ((uint32_t)0x00000008)  /* HCLK:20-35 MHz; MDC clock= HCLK/16 */
-  #define ETH_MACMIIAR_CR_Div26   ((uint32_t)0x0000000C)  /* HCLK:35-60 MHz; MDC clock= HCLK/26 */
-  #define ETH_MACMIIAR_CR_Div102  ((uint32_t)0x00000010)  /* HCLK:150-168 MHz; MDC clock= HCLK/102 */  
-#define ETH_MACMIIAR_MW   ((uint32_t)0x00000002)  /* MII write */ 
-#define ETH_MACMIIAR_MB   ((uint32_t)0x00000001)  /* MII busy */ 
+// /* Bit definition for Ethernet MAC MII Address Register */
+// #define ETH_MACMIIAR_PA   ((uint32_t)0x0000F800)  /* Physical layer address */ 
+// #define ETH_MACMIIAR_MR   ((uint32_t)0x000007C0)  /* MII register in the selected PHY */ 
+// #define ETH_MACMIIAR_CR   ((uint32_t)0x0000001C)  /* CR clock range: 6 cases */ 
+//   #define ETH_MACMIIAR_CR_Div42   ((uint32_t)0x00000000)  /* HCLK:60-100 MHz; MDC clock= HCLK/42 */
+//   #define ETH_MACMIIAR_CR_Div62   ((uint32_t)0x00000004)  /* HCLK:100-150 MHz; MDC clock= HCLK/62 */
+//   #define ETH_MACMIIAR_CR_Div16   ((uint32_t)0x00000008)  /* HCLK:20-35 MHz; MDC clock= HCLK/16 */
+//   #define ETH_MACMIIAR_CR_Div26   ((uint32_t)0x0000000C)  /* HCLK:35-60 MHz; MDC clock= HCLK/26 */
+//   #define ETH_MACMIIAR_CR_Div102  ((uint32_t)0x00000010)  /* HCLK:150-168 MHz; MDC clock= HCLK/102 */  
+// #define ETH_MACMIIAR_MW   ((uint32_t)0x00000002)  /* MII write */ 
+// #define ETH_MACMIIAR_MB   ((uint32_t)0x00000001)  /* MII busy */ 
 
 /* ETHERNET MACMIIAR register Mask */
 #define MACMIIAR_CR_MASK    ((uint32_t)0xFFFFFFE3)
@@ -1102,6 +1104,201 @@
 
 
 
+
+/**--------------------------------------------------------------------------**/
+/** 
+  * @brief                 Ethernet DMA descriptors registers bits definition
+  */ 
+/**--------------------------------------------------------------------------**/
+
+#define  ETH_DMARxDesc_FrameLengthShift           16
+
+/**
+@code 
+   DMA Tx Desciptor
+  -----------------------------------------------------------------------------------------------
+  TDES0 | OWN(31) | CTRL[30:26] | Reserved[25:24] | CTRL[23:20] | Reserved[19:17] | Status[16:0] |
+  -----------------------------------------------------------------------------------------------
+  TDES1 | Reserved[31:29] | Buffer2 ByteCount[28:16] | Reserved[15:13] | Buffer1 ByteCount[12:0] |
+  -----------------------------------------------------------------------------------------------
+  TDES2 |                         Buffer1 Address [31:0]                                         |
+  -----------------------------------------------------------------------------------------------
+  TDES3 |                   Buffer2 Address [31:0] / Next Descriptor Address [31:0]              |
+  -----------------------------------------------------------------------------------------------
+@endcode
+*/
+
+/** 
+  * @brief  Bit definition of TDES0 register: DMA Tx descriptor status register
+  */ 
+#define ETH_DMATxDesc_OWN                     ((uint32_t)0x80000000)  /*!< OWN bit: descriptor is owned by DMA engine */
+#define ETH_DMATxDesc_IC                      ((uint32_t)0x40000000)  /*!< Interrupt on Completion */
+#define ETH_DMATxDesc_LS                      ((uint32_t)0x20000000)  /*!< Last Segment */
+#define ETH_DMATxDesc_FS                      ((uint32_t)0x10000000)  /*!< First Segment */
+#define ETH_DMATxDesc_DC                      ((uint32_t)0x08000000)  /*!< Disable CRC */
+#define ETH_DMATxDesc_DP                      ((uint32_t)0x04000000)  /*!< Disable Padding */
+#define ETH_DMATxDesc_TTSE                    ((uint32_t)0x02000000)  /*!< Transmit Time Stamp Enable */
+#define ETH_DMATxDesc_CIC                     ((uint32_t)0x00C00000)  /*!< Checksum Insertion Control: 4 cases */
+#define ETH_DMATxDesc_CIC_ByPass              ((uint32_t)0x00000000)  /*!< Do Nothing: Checksum Engine is bypassed */ 
+#define ETH_DMATxDesc_CIC_IPV4Header          ((uint32_t)0x00400000)  /*!< IPV4 header Checksum Insertion */ 
+#define ETH_DMATxDesc_CIC_TCPUDPICMP_Segment  ((uint32_t)0x00800000)  /*!< TCP/UDP/ICMP Checksum Insertion calculated over segment only */ 
+#define ETH_DMATxDesc_CIC_TCPUDPICMP_Full     ((uint32_t)0x00C00000)  /*!< TCP/UDP/ICMP Checksum Insertion fully calculated */ 
+#define ETH_DMATxDesc_TER                     ((uint32_t)0x00200000)  /*!< Transmit End of Ring */
+#define ETH_DMATxDesc_TCH                     ((uint32_t)0x00100000)  /*!< Second Address Chained */
+#define ETH_DMATxDesc_TTSS                    ((uint32_t)0x00020000)  /*!< Tx Time Stamp Status */
+#define ETH_DMATxDesc_IHE                     ((uint32_t)0x00010000)  /*!< IP Header Error */
+#define ETH_DMATxDesc_ES                      ((uint32_t)0x00008000)  /*!< Error summary: OR of the following bits: UE || ED || EC || LCO || NC || LCA || FF || JT */
+#define ETH_DMATxDesc_JT                      ((uint32_t)0x00004000)  /*!< Jabber Timeout */
+#define ETH_DMATxDesc_FF                      ((uint32_t)0x00002000)  /*!< Frame Flushed: DMA/MTL flushed the frame due to SW flush */
+#define ETH_DMATxDesc_PCE                     ((uint32_t)0x00001000)  /*!< Payload Checksum Error */
+#define ETH_DMATxDesc_LCA                     ((uint32_t)0x00000800)  /*!< Loss of Carrier: carrier lost during transmission */
+#define ETH_DMATxDesc_NC                      ((uint32_t)0x00000400)  /*!< No Carrier: no carrier signal from the transceiver */
+#define ETH_DMATxDesc_LCO                     ((uint32_t)0x00000200)  /*!< Late Collision: transmission aborted due to collision */
+#define ETH_DMATxDesc_EC                      ((uint32_t)0x00000100)  /*!< Excessive Collision: transmission aborted after 16 collisions */
+#define ETH_DMATxDesc_VF                      ((uint32_t)0x00000080)  /*!< VLAN Frame */
+#define ETH_DMATxDesc_CC                      ((uint32_t)0x00000078)  /*!< Collision Count */
+#define ETH_DMATxDesc_ED                      ((uint32_t)0x00000004)  /*!< Excessive Deferral */
+#define ETH_DMATxDesc_UF                      ((uint32_t)0x00000002)  /*!< Underflow Error: late data arrival from the memory */
+#define ETH_DMATxDesc_DB                      ((uint32_t)0x00000001)  /*!< Deferred Bit */
+
+/** 
+  * @brief  Bit definition of TDES1 register
+  */ 
+#define ETH_DMATxDesc_TBS2  ((uint32_t)0x1FFF0000)  /*!< Transmit Buffer2 Size */
+#define ETH_DMATxDesc_TBS1  ((uint32_t)0x00001FFF)  /*!< Transmit Buffer1 Size */
+
+/** 
+  * @brief  Bit definition of TDES2 register
+  */ 
+#define ETH_DMATxDesc_B1AP  ((uint32_t)0xFFFFFFFF)  /*!< Buffer1 Address Pointer */
+
+/** 
+  * @brief  Bit definition of TDES3 register
+  */ 
+#define ETH_DMATxDesc_B2AP  ((uint32_t)0xFFFFFFFF)  /*!< Buffer2 Address Pointer */
+
+  /*---------------------------------------------------------------------------------------------
+  TDES6 |                         Transmit Time Stamp Low [31:0]                                 |
+  -----------------------------------------------------------------------------------------------
+  TDES7 |                         Transmit Time Stamp High [31:0]                                |
+  ----------------------------------------------------------------------------------------------*/
+
+/* Bit definition of TDES6 register */
+ #define ETH_DMAPTPTxDesc_TTSL  ((uint32_t)0xFFFFFFFF)  /* Transmit Time Stamp Low */
+
+/* Bit definition of TDES7 register */
+ #define ETH_DMAPTPTxDesc_TTSH  ((uint32_t)0xFFFFFFFF)  /* Transmit Time Stamp High */
+
+/**
+  * @}
+  */ 
+
+
+/** @defgroup DMA_Rx_descriptor 
+  * @{
+  */
+
+/**
+@code 
+  DMA Rx Descriptor
+  --------------------------------------------------------------------------------------------------------------------
+  RDES0 | OWN(31) |                                             Status [30:0]                                          |
+  ---------------------------------------------------------------------------------------------------------------------
+  RDES1 | CTRL(31) | Reserved[30:29] | Buffer2 ByteCount[28:16] | CTRL[15:14] | Reserved(13) | Buffer1 ByteCount[12:0] |
+  ---------------------------------------------------------------------------------------------------------------------
+  RDES2 |                                       Buffer1 Address [31:0]                                                 |
+  ---------------------------------------------------------------------------------------------------------------------
+  RDES3 |                          Buffer2 Address [31:0] / Next Descriptor Address [31:0]                             |
+  ---------------------------------------------------------------------------------------------------------------------
+@endcode
+*/
+
+/** 
+  * @brief  Bit definition of RDES0 register: DMA Rx descriptor status register
+  */ 
+#define ETH_DMARxDesc_OWN         ((uint32_t)0x80000000)  /*!< OWN bit: descriptor is owned by DMA engine  */
+#define ETH_DMARxDesc_AFM         ((uint32_t)0x40000000)  /*!< DA Filter Fail for the rx frame  */
+#define ETH_DMARxDesc_FL          ((uint32_t)0x3FFF0000)  /*!< Receive descriptor frame length  */
+#define ETH_DMARxDesc_ES          ((uint32_t)0x00008000)  /*!< Error summary: OR of the following bits: DE || OE || IPC || LC || RWT || RE || CE */
+#define ETH_DMARxDesc_DE          ((uint32_t)0x00004000)  /*!< Descriptor error: no more descriptors for receive frame  */
+#define ETH_DMARxDesc_SAF         ((uint32_t)0x00002000)  /*!< SA Filter Fail for the received frame */
+#define ETH_DMARxDesc_LE          ((uint32_t)0x00001000)  /*!< Frame size not matching with length field */
+#define ETH_DMARxDesc_OE          ((uint32_t)0x00000800)  /*!< Overflow Error: Frame was damaged due to buffer overflow */
+#define ETH_DMARxDesc_VLAN        ((uint32_t)0x00000400)  /*!< VLAN Tag: received frame is a VLAN frame */
+#define ETH_DMARxDesc_FS          ((uint32_t)0x00000200)  /*!< First descriptor of the frame  */
+#define ETH_DMARxDesc_LS          ((uint32_t)0x00000100)  /*!< Last descriptor of the frame  */ 
+#define ETH_DMARxDesc_IPV4HCE     ((uint32_t)0x00000080)  /*!< IPC Checksum Error: Rx Ipv4 header checksum error   */    
+#define ETH_DMARxDesc_LC          ((uint32_t)0x00000040)  /*!< Late collision occurred during reception   */
+#define ETH_DMARxDesc_FT          ((uint32_t)0x00000020)  /*!< Frame type - Ethernet, otherwise 802.3    */
+#define ETH_DMARxDesc_RWT         ((uint32_t)0x00000010)  /*!< Receive Watchdog Timeout: watchdog timer expired during reception    */
+#define ETH_DMARxDesc_RE          ((uint32_t)0x00000008)  /*!< Receive error: error reported by MII interface  */
+#define ETH_DMARxDesc_DBE         ((uint32_t)0x00000004)  /*!< Dribble bit error: frame contains non int multiple of 8 bits  */
+#define ETH_DMARxDesc_CE          ((uint32_t)0x00000002)  /*!< CRC error */
+#define ETH_DMARxDesc_MAMPCE      ((uint32_t)0x00000001)  /*!< Rx MAC Address/Payload Checksum Error: Rx MAC address matched/ Rx Payload Checksum Error */
+
+/** 
+  * @brief  Bit definition of RDES1 register
+  */ 
+#define ETH_DMARxDesc_DIC   ((uint32_t)0x80000000)  /*!< Disable Interrupt on Completion */
+#define ETH_DMARxDesc_RBS2  ((uint32_t)0x1FFF0000)  /*!< Receive Buffer2 Size */
+#define ETH_DMARxDesc_RER   ((uint32_t)0x00008000)  /*!< Receive End of Ring */
+#define ETH_DMARxDesc_RCH   ((uint32_t)0x00004000)  /*!< Second Address Chained */
+#define ETH_DMARxDesc_RBS1  ((uint32_t)0x00001FFF)  /*!< Receive Buffer1 Size */
+
+/** 
+  * @brief  Bit definition of RDES2 register  
+  */ 
+#define ETH_DMARxDesc_B1AP  ((uint32_t)0xFFFFFFFF)  /*!< Buffer1 Address Pointer */
+
+/** 
+  * @brief  Bit definition of RDES3 register  
+  */ 
+#define ETH_DMARxDesc_B2AP  ((uint32_t)0xFFFFFFFF)  /*!< Buffer2 Address Pointer */
+
+/*---------------------------------------------------------------------------------------------------------------------
+  RDES4 |                   Reserved[31:15]              |             Extended Status [14:0]                          |
+  ---------------------------------------------------------------------------------------------------------------------
+  RDES5 |                                            Reserved[31:0]                                                    |
+  ---------------------------------------------------------------------------------------------------------------------
+  RDES6 |                                       Receive Time Stamp Low [31:0]                                          |
+  ---------------------------------------------------------------------------------------------------------------------
+  RDES7 |                                       Receive Time Stamp High [31:0]                                         |
+  --------------------------------------------------------------------------------------------------------------------*/
+
+/* Bit definition of RDES4 register */
+#define ETH_DMAPTPRxDesc_PTPV     ((uint32_t)0x00002000)  /* PTP Version */
+#define ETH_DMAPTPRxDesc_PTPFT    ((uint32_t)0x00001000)  /* PTP Frame Type */
+#define ETH_DMAPTPRxDesc_PTPMT    ((uint32_t)0x00000F00)  /* PTP Message Type */
+  #define ETH_DMAPTPRxDesc_PTPMT_Sync                      ((uint32_t)0x00000100)  /* SYNC message (all clock types) */
+  #define ETH_DMAPTPRxDesc_PTPMT_FollowUp                  ((uint32_t)0x00000200)  /* FollowUp message (all clock types) */ 
+  #define ETH_DMAPTPRxDesc_PTPMT_DelayReq                  ((uint32_t)0x00000300)  /* DelayReq message (all clock types) */ 
+  #define ETH_DMAPTPRxDesc_PTPMT_DelayResp                 ((uint32_t)0x00000400)  /* DelayResp message (all clock types) */ 
+  #define ETH_DMAPTPRxDesc_PTPMT_PdelayReq_Announce        ((uint32_t)0x00000500)  /* PdelayReq message (peer-to-peer transparent clock) or Announce message (Ordinary or Boundary clock) */ 
+  #define ETH_DMAPTPRxDesc_PTPMT_PdelayResp_Manag          ((uint32_t)0x00000600)  /* PdelayResp message (peer-to-peer transparent clock) or Management message (Ordinary or Boundary clock)  */ 
+  #define ETH_DMAPTPRxDesc_PTPMT_PdelayRespFollowUp_Signal ((uint32_t)0x00000700)  /* PdelayRespFollowUp message (peer-to-peer transparent clock) or Signaling message (Ordinary or Boundary clock) */           
+#define ETH_DMAPTPRxDesc_IPV6PR   ((uint32_t)0x00000080)  /* IPv6 Packet Received */
+#define ETH_DMAPTPRxDesc_IPV4PR   ((uint32_t)0x00000040)  /* IPv4 Packet Received */
+#define ETH_DMAPTPRxDesc_IPCB  ((uint32_t)0x00000020)  /* IP Checksum Bypassed */
+#define ETH_DMAPTPRxDesc_IPPE  ((uint32_t)0x00000010)  /* IP Payload Error */
+#define ETH_DMAPTPRxDesc_IPHE  ((uint32_t)0x00000008)  /* IP Header Error */
+#define ETH_DMAPTPRxDesc_IPPT  ((uint32_t)0x00000007)  /* IP Payload Type */
+  #define ETH_DMAPTPRxDesc_IPPT_UDP                 ((uint32_t)0x00000001)  /* UDP payload encapsulated in the IP datagram */
+  #define ETH_DMAPTPRxDesc_IPPT_TCP                 ((uint32_t)0x00000002)  /* TCP payload encapsulated in the IP datagram */ 
+  #define ETH_DMAPTPRxDesc_IPPT_ICMP                ((uint32_t)0x00000003)  /* ICMP payload encapsulated in the IP datagram */
+
+/* Bit definition of RDES6 register */
+#define ETH_DMAPTPRxDesc_RTSL  ((uint32_t)0xFFFFFFFF)  /* Receive Time Stamp Low */
+
+/* Bit definition of RDES7 register */
+#define ETH_DMAPTPRxDesc_RTSH  ((uint32_t)0xFFFFFFFF)  /* Receive Time Stamp High */
+
+/**
+  * @}
+  */
+
+
+
+
 typedef enum
 {
 	OK       = 0x00U,
@@ -1278,6 +1475,81 @@ typedef struct {
   uint32_t             ETH_DMAArbitration;              /*!< Selects the DMA Tx/Rx arbitration
                                                              This parameter can be a value of @ref ETH_DMA_Arbitration */  
 }ETH_InitTypeDef;
+
+
+
+
+/**--------------------------------------------------------------------------**/
+/** 
+  * @brief                           DMA descriptors types
+  */ 
+/**--------------------------------------------------------------------------**/
+
+/** 
+  * @brief  ETH DMA Descriptors data structure definition
+  */ 
+typedef struct  {
+  __IO uint32_t   Status;                /*!< Status */
+  uint32_t   ControlBufferSize;     /*!< Control and Buffer1, Buffer2 lengths */
+  uint32_t   Buffer1Addr;           /*!< Buffer1 address pointer */
+  uint32_t   Buffer2NextDescAddr;   /*!< Buffer2 or next descriptor address pointer */
+/* Enhanced ETHERNET DMA PTP Descriptors */
+#ifdef USE_ENHANCED_DMA_DESCRIPTORS
+  uint32_t   ExtendedStatus;        /* Extended status for PTP receive descriptor */
+  uint32_t   Reserved1;             /* Reserved */
+  uint32_t   TimeStampLow;          /* Time Stamp Low value for transmit and receive */
+  uint32_t   TimeStampHigh;         /* Time Stamp High value for transmit and receive */
+#endif /* USE_ENHANCED_DMA_DESCRIPTORS */
+} ETH_DMADESCTypeDef;
+
+
+typedef struct{
+  uint32_t length;
+  uint32_t buffer;
+  __IO ETH_DMADESCTypeDef *descriptor;
+}FrameTypeDef;
+
+
+typedef struct  {
+  __IO ETH_DMADESCTypeDef *FS_Rx_Desc;          /*!< First Segment Rx Desc */
+  __IO ETH_DMADESCTypeDef *LS_Rx_Desc;          /*!< Last Segment Rx Desc */
+  __IO uint32_t  Seg_Count;                     /*!< Segment count */
+} ETH_DMA_Rx_Frame_infos;
+  
+
+/**
+  * @}
+  */
+
+
+/*export functions*/
+ETH_CallStatus_Type GetLinkState(void);
+ETH_CallStatus_Type ETH_Init(ETH_InitTypeDef* ETH_InitStruct, uint16_t PHYAddress);
+ETH_CallStatus_Type ETH_CheckFrameAvaibility(void);
+uint32_t ETH_Prepare_Transmit_Descriptors(uint16_t FrameLength);
+void ETH_DMARxDescChainInit(ETH_DMADESCTypeDef *DMARxDescTab, uint8_t *RxBuff, uint32_t RxBuffCount);
+ETH_CallStatus_Type  ETH_ReadPHYRegister(uint16_t PHYAddress, uint16_t PHYReg, uint32_t *RegValueRet);
+ETH_CallStatus_Type ETH_WritePHYRegister(uint16_t PHYAddress, uint16_t PHYReg, uint32_t RegValue);
+void ETH_gpio_rcc_init(void);
+
+#ifdef 0
+/* Common (global) variables with ethernet interface module */
+ETH_DMADESCTypeDef  DMARxDscrTab[ETH_RXBUFNB] __attribute__ ((aligned (4))); /* Ethernet Rx DMA Descriptor */
+ETH_DMADESCTypeDef  DMATxDscrTab[ETH_TXBUFNB] __attribute__ ((aligned (4))); /* Ethernet Tx DMA Descriptor */
+uint8_t Rx_Buff[ETH_RXBUFNB][ETH_RX_BUF_SIZE] __attribute__ ((aligned (4))); /* Ethernet Receive Buffer */
+uint8_t Tx_Buff[ETH_TXBUFNB][ETH_TX_BUF_SIZE] __attribute__ ((aligned (4))); /* Ethernet Transmit Buffer */
+
+/* Global pointers on Tx and Rx descriptor used to track transmit and receive descriptors */
+__IO ETH_DMADESCTypeDef  *DMATxDescToSet;
+__IO ETH_DMADESCTypeDef  *DMARxDescToGet;
+
+
+/* Structure used to hold the last received packet descriptors info */
+ETH_DMA_Rx_Frame_infos RX_Frame_Descriptor;
+__IO ETH_DMA_Rx_Frame_infos *DMA_RX_FRAME_infos;
+__IO uint32_t Frame_Rx_index;
+
+#endif
 
 
 

@@ -16,6 +16,7 @@ C_SOURCES += Drivers/GPIO/GPIO_f7.c
 C_SOURCES += Drivers/System/System.c
 C_SOURCES += Middlewares/DLTuc_libFiles/DLTuc.c
 C_SOURCES += Drivers/usart3/UART3_dlt.c
+C_SOURCES += Drivers/Ethernet_nucleof767/eth_nuc_f767.c
 
 # ASM sources
 ASM_SOURCES += _startup_stm32f767zitx.s
@@ -55,6 +56,7 @@ C_INCLUDES += -IDrivers/GPIO
 C_INCLUDES += -IDrivers/System
 C_INCLUDES += -IDrivers/usart3
 C_INCLUDES += -IMiddlewares/DLTuc_libFiles
+C_INCLUDES += -IDrivers/Ethernet_nucleof767
 
 # compile gcc flags
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections

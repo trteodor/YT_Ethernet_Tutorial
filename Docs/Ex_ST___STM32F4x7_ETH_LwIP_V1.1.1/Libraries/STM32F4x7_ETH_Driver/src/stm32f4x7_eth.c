@@ -102,6 +102,16 @@ uint8_t Tx_Buff[ETH_TXBUFNB][ETH_TX_BUF_SIZE]; /* Ethernet Transmit Buffer */
 #endif /* __CC_ARM */
 
 
+/* Global pointers on Tx and Rx descriptor used to track transmit and receive descriptors */
+__IO ETH_DMADESCTypeDef  *DMATxDescToSet;
+__IO ETH_DMADESCTypeDef  *DMARxDescToGet;
+
+
+/* Structure used to hold the last received packet descriptors info */
+ETH_DMA_Rx_Frame_infos RX_Frame_Descriptor;
+__IO ETH_DMA_Rx_Frame_infos *DMA_RX_FRAME_infos;
+__IO uint32_t Frame_Rx_index;
+
 
 /**
 * @}
