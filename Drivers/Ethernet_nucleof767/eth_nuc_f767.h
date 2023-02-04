@@ -3,14 +3,10 @@
 
 
 /* *************************************************************************************************/
-/* *************************************************************************************************/
-/*PHY DEFINES SECTION START LAN8720*/
-/*LAN8720 ONLY!!!*/
-/*LAN8720 ONLY!!!*/
-/*LAN8720 ONLY!!!*/
-/*LAN8720 ONLY!!!*/
-/* *************************************************************************************************/
-#define PHY_RESET_DELAY    ((uint32_t)0x000FFFFF)
+/* ################## Ethernet peripheral configuration for NUCLEO 144 board ##################### */
+
+/*Pll Configured frequency!!!*/
+#define SYSTEM_CORE_CLOCK_HZ_VALUE 200000000;
 
 /* Definition of the Ethernet driver buffers size and count */   
 #define ETH_RX_BUF_SIZE                1528U    /* ETH Max buffer size for receive               */
@@ -25,12 +21,19 @@
 #define PHY_RESET_DELAY                 0x00000FFFU
 /* PHY Configuration delay */
 #define PHY_CONFIG_DELAY                0x00000FFFU
+/* PHY Configuration delay */ 
+#define ETH_REG_WRITE_DELAY ((uint32_t)0x0000FFFF)
 
 #define PHY_READ_TO                     0x0000FFFFU
 #define PHY_WRITE_TO                    0x0000FFFFU
-
+/* *************************************************************************************************/
+/*PHY DEFINES SECTION START LAN8720*/
+/* *************************************************************************************************/
 /* Section 3: Common PHY Registers */
-
+/*LAN8720 ONLY!!!*/
+/*LAN8720 ONLY!!!*/
+/*LAN8720 ONLY!!!*/
+/*LAN8720 ONLY!!!*/
 #define PHY_BCR                         ((uint16_t)0x0000U)    /*!< Transceiver Basic Control Register   */
 #define PHY_BSR                         ((uint16_t)0x0001U)    /*!< Transceiver Basic Status Register    */
  
@@ -59,13 +62,21 @@
 
 #define PHY_ISFR                        ((uint16_t)0x1D)    /*!< PHY Interrupt Source Flag register Offset       */
 #define PHY_ISFR_INT4                   ((uint16_t)0x0010)  /*!< PHY Link down inturrupt                         */
+/*LAN8720 ONLY!!!*/
+/*LAN8720 ONLY!!!*/
+/*LAN8720 ONLY!!!*/
+/*LAN8720 ONLY!!!*/
+/* *************************************************************************************************/
 
-/*LAN8720 ONLY!!!*/
-/*LAN8720 ONLY!!!*/
-/*LAN8720 ONLY!!!*/
-/*LAN8720 ONLY!!!*/
 /*PHY DEFINES SECTION END*/
 /* *************************************************************************************************/
+/* ################## Ethernet peripheral configuration for NUCLEO 144 board END ################## */
+
+
+
+
+
+
 
 /** @defgroup PHY_basic_Control_register 
   * @{
@@ -1038,6 +1049,57 @@
 #define ETH_DMA_Overflow_MissedFrameCounter ((uint32_t)0x00010000)  /*!< Overflow bit for missed frame counter */
 #define IS_ETH_DMA_GET_OVERFLOW(OVERFLOW) (((OVERFLOW) == ETH_DMA_Overflow_RxFIFOCounter) || \
                                            ((OVERFLOW) == ETH_DMA_Overflow_MissedFrameCounter))
+
+
+
+
+
+
+/**
+  * @}
+  */ 
+/* ETHERNET MAC address offsets */
+#define ETH_MAC_ADDR_HBASE   (ETH_MAC_BASE + 0x40)  /* ETHERNET MAC address high offset */
+#define ETH_MAC_ADDR_LBASE    (ETH_MAC_BASE + 0x44)  /* ETHERNET MAC address low offset */
+
+/* ETHERNET MACMIIAR register Mask */
+#define MACMIIAR_CR_MASK    ((uint32_t)0xFFFFFFE3)
+
+/* ETHERNET MACCR register Mask */
+#define MACCR_CLEAR_MASK    ((uint32_t)0xFF20810F)  
+
+/* ETHERNET MACFCR register Mask */
+#define MACFCR_CLEAR_MASK   ((uint32_t)0x0000FF41)
+
+
+/* ETHERNET DMAOMR register Mask */
+#define DMAOMR_CLEAR_MASK   ((uint32_t)0xF8DE3F23)
+
+
+/* ETHERNET Remote Wake-up frame register length */
+#define ETH_WAKEUP_REGISTER_LENGTH      8
+
+/* ETHERNET Missed frames counter Shift */
+#define  ETH_DMA_RX_OVERFLOW_MISSEDFRAMES_COUNTERSHIFT     17
+
+/* ETHERNET DMA Tx descriptors Collision Count Shift */
+#define  ETH_DMATXDESC_COLLISION_COUNTSHIFT        3
+
+/* ETHERNET DMA Tx descriptors Buffer2 Size Shift */
+#define  ETH_DMATXDESC_BUFFER2_SIZESHIFT           16
+
+/* ETHERNET DMA Rx descriptors Frame Length Shift */
+#define  ETH_DMARXDESC_FRAME_LENGTHSHIFT           16
+
+/* ETHERNET DMA Rx descriptors Buffer2 Size Shift */
+#define  ETH_DMARXDESC_BUFFER2_SIZESHIFT           16
+
+/* ETHERNET errors */
+#define  ETH_ERROR              ((uint32_t)0)
+#define  ETH_SUCCESS            ((uint32_t)1)
+
+/**/
+
 
 
 typedef enum

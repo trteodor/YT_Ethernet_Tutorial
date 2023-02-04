@@ -45,7 +45,7 @@ void ETH_gpio_rcc_init(void)
 	SET_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOGEN);
 
 	/* Configure PA1, PA2 and PA7 */
-	GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
 	GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	GPIO_InitStruct.Alternate = GPIO_AF11_ETH;
@@ -117,7 +117,7 @@ ETH_CallStatus_Type ETH_WritePHYRegister(uint16_t PHYAddress, uint16_t PHYReg, u
  * \param out RegValueRet - register value: Data read from the selected PHY register (if )
  * \return Status of read, if "OK" then read process should be finished succed
  * */
-ETH_CallStatus_Type ETH_ReadPHYRegister(uint16_t PHYAddress, uint16_t PHYReg, uint32_t *RegValueRet)
+ETH_CallStatus_Type  ETH_ReadPHYRegister(uint16_t PHYAddress, uint16_t PHYReg, uint32_t *RegValueRet)
 {
 	uint32_t tmpreg    = 0;
     __IO uint32_t timeout = 0;
@@ -166,7 +166,7 @@ static void ETH_Delay(__IO uint32_t nCount)
  * \param RingBuffer_t *Buf 
  * \param out MessageSize
  * \param out MessagePointer
- * 
+ *
  * */
 /**
   * @brief  Initializes the ETHERNET peripheral according to the specified
@@ -175,9 +175,9 @@ static void ETH_Delay(__IO uint32_t nCount)
   *   the configuration information for the specified ETHERNET peripheral.
   * @param PHYAddress: external PHY address
   * @retval ERR: Ethernet initialization failed
-  *         ETH_SUCCESS: Ethernet successfully initialized
+  *         OK: Ethernet successfully initialized
   */
-#define SYSTEM_CORE_CLOCK_HZ_VALUE 200000000;
+
 
 ETH_CallStatus_Type ETH_Init(ETH_InitTypeDef* ETH_InitStruct, uint16_t PHYAddress)
 {
@@ -202,26 +202,26 @@ ETH_CallStatus_Type ETH_Init(ETH_InitTypeDef* ETH_InitStruct, uint16_t PHYAddres
   }
   else if((hclk >= 35000000)&&(hclk < 60000000))
   {
-    /* CSR Clock Range between 35-60 MHz */ 
+    /* CSR Clock Range between 35-60 MHz */
     tmpreg |= (uint32_t)ETH_MACMIIAR_CR_Div26;
-  }  
+  }
   else if((hclk >= 60000000)&&(hclk < 100000000))
   {
-    /* CSR Clock Range between 60-100 MHz */ 
+    /* CSR Clock Range between 60-100 MHz */
     tmpreg |= (uint32_t)ETH_MACMIIAR_CR_Div42;
-  }  
+  }
   else if((hclk >= 100000000)&&(hclk < 150000000))
   {
-    /* CSR Clock Range between 100-150 MHz */ 
+    /* CSR Clock Range between 100-150 MHz */
     tmpreg |= (uint32_t)ETH_MACMIIAR_CR_Div62;
   }
   else
   {
-    tmpreg |= (uint32_t)ETH_MACMIIAR_CR_Div102;    
+    tmpreg |= (uint32_t)ETH_MACMIIAR_CR_Div102;
   }
-  
+
   /* Write to ETHERNET MAC MIIAR: Configure the ETHERNET CSR Clock Range */
-  ETH->MACMIIAR = (uint32_t)tmpreg;  
+  ETH->MACMIIAR = (uint32_t)tmpreg;
   /*-------------------- PHY initialization and configuration ----------------*/
   /* Put the PHY in reset mode */
   if(!(ETH_WritePHYRegister(PHYAddress, PHY_BCR, PHY_Reset)))
@@ -230,10 +230,10 @@ ETH_CallStatus_Type ETH_Init(ETH_InitTypeDef* ETH_InitStruct, uint16_t PHYAddres
     err = ERR;
     goto error;
   }
-  
+
   /* Delay to assure PHY reset */
   ETH_Delay(PHY_RESET_DELAY);
-  
+
   if(ETH_InitStruct->ETH_AutoNegotiation != ETH_AutoNegotiation_Disable)
   {
     /* We wait for linked status...*/
@@ -241,23 +241,23 @@ ETH_CallStatus_Type ETH_Init(ETH_InitTypeDef* ETH_InitStruct, uint16_t PHYAddres
     {
       timeout++;
     } while (!(ETH_ReadPHYRegister(PHYAddress, PHY_BSR) & PHY_Linked_Status) && (timeout < PHY_READ_TO));
-    
+
     /* Return ERROR in case of timeout */
     if(timeout == PHY_READ_TO)
     {
       err = ERR;
       goto error;
     }
-    
+
     /* Reset Timeout counter */
-    timeout = 0; 
+    timeout = 0;
     /* Enable Auto-Negotiation */
     if(!(ETH_WritePHYRegister(PHYAddress, PHY_BCR, PHY_AutoNegotiation)))
     {
       /* Return ERROR in case of write timeout */
       err = ERR;
     }
-    
+
     /* Wait until the auto-negotiation will be completed */
     do
     {
@@ -279,22 +279,22 @@ ETH_CallStatus_Type ETH_Init(ETH_InitTypeDef* ETH_InitStruct, uint16_t PHYAddres
     if((RegValue & PHY_DUPLEX_STATUS) != (uint32_t)RESET)
     {
       /* Set Ethernet duplex mode to Full-duplex following the auto-negotiation */
-      ETH_InitStruct->ETH_Mode = ETH_Mode_FullDuplex;  
+      ETH_InitStruct->ETH_Mode = ETH_Mode_FullDuplex;
     }
     else
     {
       /* Set Ethernet duplex mode to Half-duplex following the auto-negotiation */
-      ETH_InitStruct->ETH_Mode = ETH_Mode_HalfDuplex;           
+      ETH_InitStruct->ETH_Mode = ETH_Mode_HalfDuplex;
     }
     /* Configure the MAC with the speed fixed by the auto-negotiation process */
     if(RegValue & PHY_SPEED_STATUS)
-    {  
+    {
       /* Set Ethernet speed to 10M following the auto-negotiation */
-      ETH_InitStruct->ETH_Speed = ETH_Speed_10M; 
+      ETH_InitStruct->ETH_Speed = ETH_Speed_10M;
     }
     else
-    {   
-      /* Set Ethernet speed to 100M following the auto-negotiation */ 
+    {
+      /* Set Ethernet speed to 100M following the auto-negotiation */
       ETH_InitStruct->ETH_Speed = ETH_Speed_100M;
     }
   }
@@ -304,8 +304,8 @@ ETH_CallStatus_Type ETH_Init(ETH_InitTypeDef* ETH_InitStruct, uint16_t PHYAddres
                                                    (uint16_t)(ETH_InitStruct->ETH_Speed >> 1))))
     {
       /* Return ERROR in case of write timeout */
-      err = ERR;
-    }  
+       err = ERR;
+    }
     /* Delay to assure PHY configuration */
     _eth_delay_(PHY_CONFIG_DELAY);
   }
@@ -318,63 +318,11 @@ error:
     /* Set Ethernet speed to 100M */
     ETH_InitStruct->ETH_Speed = ETH_Speed_100M;
   }
-
-  /*------------------------ ETHERNET MACCR Configuration --------------------*/
-    /* Get the ETHERNET MACCR value */
-    tmpreg = ETH->MACCR;
-    /* Clear WD, PCE, PS, TE and RE bits */
-    tmpreg &= MACCR_CLEAR_MASK;
-  /* Set the WD bit according to ETH_Watchdog value */
-  /* Set the JD: bit according to ETH_Jabber value */
-  /* Set the IFG bit according to ETH_InterFrameGap value */
-  /* Set the DCRS bit according to ETH_CarrierSense value */
-  /* Set the FES bit according to ETH_Speed value */ 
-  /* Set the DO bit according to ETH_ReceiveOwn value */ 
-  /* Set the LM bit according to ETH_LoopbackMode value */
-  /* Set the DM bit according to ETH_Mode value */ 
-  /* Set the IPCO bit according to ETH_ChecksumOffload value */
-  /* Set the DR bit according to ETH_RetryTransmission value */
-  /* Set the ACS bit according to ETH_AutomaticPadCRCStrip value */
-  /* Set the BL bit according to ETH_BackOffLimit value */
-  /* Set the DC bit according to ETH_DeferralCheck value */
-      tmpreg |= (uint32_t)(ETH_InitStruct->ETH_Watchdog | 
-                           ETH_InitStruct->ETH_Jabber | 
-                           ETH_InitStruct->ETH_InterFrameGap |
-                           ETH_InitStruct->ETH_CarrierSense |
-                           ETH_InitStruct->ETH_Speed | 
-                           ETH_InitStruct->ETH_ReceiveOwn |
-                           ETH_InitStruct->ETH_LoopbackMode |
-                           ETH_InitStruct->ETH_Mode | 
-                           ETH_InitStruct->ETH_ChecksumOffload |    
-                           ETH_InitStruct->ETH_RetryTransmission | 
-                           ETH_InitStruct->ETH_AutomaticPadCRCStrip | 
-                           ETH_InitStruct->ETH_BackOffLimit | 
-                           ETH_InitStruct->ETH_DeferralCheck);
-    /* Write to ETHERNET MACCR */
-    ETH->MACCR = (uint32_t)tmpreg;
-    
-  /* Wait until the write operation will be taken into account :
-   at least four TX_CLK/RX_CLK clock cycles */
-    tmpreg = ETH->MACCR;
-    _eth_delay_(ETH_REG_WRITE_DELAY);
-    ETH->MACCR = tmpreg; 
-  
+ 
   /*----------------------- ETHERNET MACFFR Configuration --------------------*/ 
-  /* Set the RA bit according to ETH_ReceiveAll value */
-  /* Set the SAF and SAIF bits according to ETH_SourceAddrFilter value */
-  /* Set the PCF bit according to ETH_PassControlFrames value */
-  /* Set the DBF bit according to ETH_BroadcastFramesReception value */
-  /* Set the DAIF bit according to ETH_DestinationAddrFilter value */
-  /* Set the PR bit according to ETH_PromiscuousMode value */
-  /* Set the PM, HMC and HPF bits according to ETH_MulticastFramesFilter value */
-  /* Set the HUC and HPF bits according to ETH_UnicastFramesFilter value */
-  /* Write to ETHERNET MACFFR */  
-  ETH->MACFFR = (uint32_t)(ETH_InitStruct->ETH_ReceiveAll | 
-                           ETH_InitStruct->ETH_SourceAddrFilter |
-                           ETH_InitStruct->ETH_PassControlFrames |
-                           ETH_InitStruct->ETH_BroadcastFramesReception | 
-                           ETH_InitStruct->ETH_DestinationAddrFilter |
-                           ETH_InitStruct->ETH_PromiscuousMode |
+  ETH->MACFFR = (uint32_t)(ETH_InitStruct->ETH_ReceiveAll | ETH_InitStruct->ETH_SourceAddrFilter |
+                           ETH_InitStruct->ETH_PassControlFrames | ETH_InitStruct->ETH_BroadcastFramesReception | 
+                           ETH_InitStruct->ETH_DestinationAddrFilter | ETH_InitStruct->ETH_PromiscuousMode |
                            ETH_InitStruct->ETH_MulticastFramesFilter |
                            ETH_InitStruct->ETH_UnicastFramesFilter);
 
@@ -397,18 +345,9 @@ error:
   /* Clear xx bits */
   tmpreg &= MACFCR_CLEAR_MASK;
 
-  /* Set the PT bit according to ETH_PauseTime value */
-  /* Set the DZPQ bit according to ETH_ZeroQuantaPause value */
-  /* Set the PLT bit according to ETH_PauseLowThreshold value */
-  /* Set the UP bit according to ETH_UnicastPauseFrameDetect value */
-  /* Set the RFE bit according to ETH_ReceiveFlowControl value */
-  /* Set the TFE bit according to ETH_TransmitFlowControl value */ 
-  tmpreg |= (uint32_t)((ETH_InitStruct->ETH_PauseTime << 16) | 
-                        ETH_InitStruct->ETH_ZeroQuantaPause |
-                        ETH_InitStruct->ETH_PauseLowThreshold |
-                        ETH_InitStruct->ETH_UnicastPauseFrameDetect | 
-                        ETH_InitStruct->ETH_ReceiveFlowControl |
-                        ETH_InitStruct->ETH_TransmitFlowControl); 
+  tmpreg |= (uint32_t)((ETH_InitStruct->ETH_PauseTime << 16) | ETH_InitStruct->ETH_ZeroQuantaPause |
+                        ETH_InitStruct->ETH_PauseLowThreshold | ETH_InitStruct->ETH_UnicastPauseFrameDetect | 
+                        ETH_InitStruct->ETH_ReceiveFlowControl | ETH_InitStruct->ETH_TransmitFlowControl); 
   /* Write to ETHERNET MACFCR */
   ETH->MACFCR = (uint32_t)tmpreg;
   
@@ -437,23 +376,11 @@ error:
   tmpreg = ETH->DMAOMR;
   /* Clear xx bits */
   tmpreg &= DMAOMR_CLEAR_MASK;
-  
-  /* Set the DT bit according to ETH_DropTCPIPChecksumErrorFrame value */
-  /* Set the RSF bit according to ETH_ReceiveStoreForward value */
-  /* Set the DFF bit according to ETH_FlushReceivedFrame value */
-  /* Set the TSF bit according to ETH_TransmitStoreForward value */
-  /* Set the TTC bit according to ETH_TransmitThresholdControl value */
-  /* Set the FEF bit according to ETH_ForwardErrorFrames value */
-  /* Set the FUF bit according to ETH_ForwardUndersizedGoodFrames value */
-  /* Set the RTC bit according to ETH_ReceiveThresholdControl value */
-  /* Set the OSF bit according to ETH_SecondFrameOperate value */
+
   tmpreg |= (uint32_t)(ETH_InitStruct->ETH_DropTCPIPChecksumErrorFrame | 
-                       ETH_InitStruct->ETH_ReceiveStoreForward |
-                       ETH_InitStruct->ETH_FlushReceivedFrame |
-                       ETH_InitStruct->ETH_TransmitStoreForward | 
-                       ETH_InitStruct->ETH_TransmitThresholdControl |
-                       ETH_InitStruct->ETH_ForwardErrorFrames |
-                       ETH_InitStruct->ETH_ForwardUndersizedGoodFrames |
+                       ETH_InitStruct->ETH_ReceiveStoreForward | ETH_InitStruct->ETH_FlushReceivedFrame |
+                       ETH_InitStruct->ETH_TransmitStoreForward | ETH_InitStruct->ETH_TransmitThresholdControl |
+                       ETH_InitStruct->ETH_ForwardErrorFrames | ETH_InitStruct->ETH_ForwardUndersizedGoodFrames |
                        ETH_InitStruct->ETH_ReceiveThresholdControl |
                        ETH_InitStruct->ETH_SecondFrameOperate); 
   /* Write to ETHERNET DMAOMR */
@@ -466,17 +393,9 @@ error:
   ETH->DMAOMR = tmpreg;
 
   /*----------------------- ETHERNET DMABMR Configuration --------------------*/
-  /* Set the AAL bit according to ETH_AddressAlignedBeats value */
-  /* Set the FB bit according to ETH_FixedBurst value */
-  /* Set the RPBL and 4*PBL bits according to ETH_RxDMABurstLength value */
-  /* Set the PBL and 4*PBL bits according to ETH_TxDMABurstLength value */
-  /* Set the DSL bit according to ETH_DesciptorSkipLength value */
-  /* Set the PR and DA bits according to ETH_DMAArbitration value */
-  ETH->DMABMR = (uint32_t)(ETH_InitStruct->ETH_AddressAlignedBeats | 
-                           ETH_InitStruct->ETH_FixedBurst |
+  ETH->DMABMR = (uint32_t)(ETH_InitStruct->ETH_AddressAlignedBeats | ETH_InitStruct->ETH_FixedBurst |
                            ETH_InitStruct->ETH_RxDMABurstLength | /* !! if 4xPBL is selected for Tx or Rx it is applied for the other */
-                           ETH_InitStruct->ETH_TxDMABurstLength | 
-                           (ETH_InitStruct->ETH_DescriptorSkipLength << 2) |
+                           ETH_InitStruct->ETH_TxDMABurstLength | (ETH_InitStruct->ETH_DescriptorSkipLength << 2) |
                            ETH_InitStruct->ETH_DMAArbitration |
                            ETH_DMABMR_USP); /* Enable use of separate PBL for Rx and Tx */
 
@@ -498,10 +417,10 @@ error:
 #endif /* USE_ENHANCED_DMA_DESCRIPTORS */
 
   /* Return Ethernet configuration success */
-  if(err == ETH_SUCCESS)
+  if(err == OK)
   {
     /* Return Ethernet configuration success */
-    return ETH_SUCCESS;
+    return OK;
   }
   else /* Auto-negotiation failed */
   {
