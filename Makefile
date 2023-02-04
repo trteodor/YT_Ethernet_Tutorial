@@ -4,19 +4,65 @@ DEBUG ?= 1
 OPT = -Og
 # Build path
 BUILD_DIR = .build
+
+#######################################
+# LWIP INCLUDES DIRS
+lwip_INC :=
+lwip_INC += -IMiddlewares/lwip-STABLE-2_1_3/src/apps
+lwip_INC += -IMiddlewares/lwip-STABLE-2_1_3/src/include/lwip/apps
+lwip_INC += -IMiddlewares/lwip-STABLE-2_1_3/src/include/lwip
+lwip_INC += -IMiddlewares/lwip-STABLE-2_1_3/system/arch
+lwip_INC += -IMiddlewares/lwip-STABLE-2_1_3/src/include/netif
+lwip_INC += -IMiddlewares/lwip-STABLE-2_1_3/src/include/lwip/prot
+lwip_INC += -IMiddlewares/lwip-STABLE-2_1_3/src/include/lwip/priv
+lwip_INC += -IMiddlewares/lwip-STABLE-2_1_3/src/apps/http
+lwip_INC += -IMiddlewares/lwip-STABLE-2_1_3/src/include
+lwip_INC += -IMiddlewares/lwip-STABLE-2_1_3/src/system
+#########################################
+
+#######################################
+# Configi
+config_inc = $(wildcard Config/*/)
+config_inc1 = $(wildcard Config/*/*)
+config_inc2 = $(wildcard Config/*/*/*)
+config_dir += $(sort $(dir $(wildcard $(config_inc))))
+config_dir += $(sort $(dir $(wildcard $(config_inc1))))
+config_dir += $(sort $(dir $(wildcard $(config_inc2))))
+Dir_config_dir = $(sort $(dir $(wildcard $(config_dir))))
+
+
+Config_SRCC := $(foreach dir,$(Dir_config_dir),$(wildcard $(dir)*.c))
+
+Config_IncDirs = $(foreach dir, $(Dir_config_dir), $(addprefix -I, $(dir)))
+
+$(info Includy: $(Config_IncDirs) )
+$(info --------------- )
+$(info --------------- )
+$(info $(Config_SRCC) )
+$(info --------------- )
+$(info --------------- )
+
 ######################################
 # source
 ######################################
+LWIPDIR := Middlewares/lwip-STABLE-2_1_3/src
+
+include Middlewares/lwip-STABLE-2_1_3/src/Filelists.mk
+
+
 # C sources
 C_SOURCES += Application/main.c
+C_SOURCES += $(Config_SRCC)
 C_SOURCES += Application/leds.c
-C_SOURCES += Application/syscalls.c
-C_SOURCES += Application/sysmem.c
+# C_SOURCES += Application/syscalls.c
+# C_SOURCES += Application/sysmem.c
 C_SOURCES += Drivers/GPIO/GPIO_f7.c
 C_SOURCES += Drivers/System/System.c
 C_SOURCES += Middlewares/DLTuc_libFiles/DLTuc.c
 C_SOURCES += Drivers/usart3/UART3_dlt.c
 C_SOURCES += Drivers/Ethernet_nucleof767/eth_nuc_f767.c
+C_SOURCES += $(LWIPAPPFILES)
+C_SOURCES += $(LWIPNOAPPSFILES)
 
 # ASM sources
 ASM_SOURCES += _startup_stm32f767zitx.s
@@ -57,6 +103,8 @@ C_INCLUDES += -IDrivers/System
 C_INCLUDES += -IDrivers/usart3
 C_INCLUDES += -IMiddlewares/DLTuc_libFiles
 C_INCLUDES += -IDrivers/Ethernet_nucleof767
+C_INCLUDES += $(lwip_INC)
+C_INCLUDES += $(Config_IncDirs)
 
 # compile gcc flags
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
@@ -105,12 +153,15 @@ OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(ASM_SOURCES:.s=.o)))
 vpath %.s $(sort $(dir $(ASM_SOURCES)))
 
 $(BUILD_DIR)/%.o: %.c Makefile | $(BUILD_DIR) 
-	$(CC) -c $(CFLAGS) -Wa,-a,-ad,-alms=$(BUILD_DIR)/$(notdir $(<:.c=.lst)) $< -o $@
+	@$(CC) -c $(CFLAGS) -Wa,-a,-ad,-alms=$(BUILD_DIR)/$(notdir $(<:.c=.lst)) $< -o $@
+	@echo CC $<
 
 $(BUILD_DIR)/%.o: %.s Makefile | $(BUILD_DIR)
 	$(AS) -c $(CFLAGS) $< -o $@
 
 $(BUILD_DIR)/$(TARGET).elf: $(OBJECTS) Makefile
+	@echo linking...
+	@echo ----------------------
 	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
 	$(SZ) $@
 

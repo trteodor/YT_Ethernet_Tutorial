@@ -1532,7 +1532,7 @@ ETH_CallStatus_Type  ETH_ReadPHYRegister(uint16_t PHYAddress, uint16_t PHYReg, u
 ETH_CallStatus_Type ETH_WritePHYRegister(uint16_t PHYAddress, uint16_t PHYReg, uint32_t RegValue);
 void ETH_gpio_rcc_init(void);
 
-#ifdef 0
+#ifdef EXPORTED_VARIABLES_ADD_TO_COMPILATION
 /* Common (global) variables with ethernet interface module */
 ETH_DMADESCTypeDef  DMARxDscrTab[ETH_RXBUFNB] __attribute__ ((aligned (4))); /* Ethernet Rx DMA Descriptor */
 ETH_DMADESCTypeDef  DMATxDscrTab[ETH_TXBUFNB] __attribute__ ((aligned (4))); /* Ethernet Tx DMA Descriptor */

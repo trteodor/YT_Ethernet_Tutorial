@@ -29,7 +29,10 @@
         "leds.h": "c",
         "usart3.h": "c",
         "dltuc.h": "c",
-        "eth_nuc_f767.h": "c"
+        "eth_nuc_f767.h": "c",
+        "snmp_opts.h": "c",
+        "stdlib.h": "c",
+        "errno.h": "c"
     },
     "cortex-debug.variableUseNaturalFormat": true
 }
