@@ -54,8 +54,8 @@ include Middlewares/lwip-STABLE-2_1_3/src/Filelists.mk
 C_SOURCES += Application/main.c
 C_SOURCES += $(Config_SRCC)
 C_SOURCES += Application/leds.c
-# C_SOURCES += Application/syscalls.c
-# C_SOURCES += Application/sysmem.c
+C_SOURCES += Application/syscalls.c
+C_SOURCES += Application/sysmem.c
 C_SOURCES += Drivers/GPIO/GPIO_f7.c
 C_SOURCES += Drivers/System/System.c
 C_SOURCES += Middlewares/DLTuc_libFiles/DLTuc.c
@@ -95,7 +95,8 @@ C_DEFS += -DSTM32F767xx
 # AS includes
 AS_INCLUDES = 
 # C includes
-C_INCLUDES := -IDApplication
+C_INCLUDES += $(lwip_INC)
+C_INCLUDES += -IDApplication
 C_INCLUDES += -IDrivers/CMSIS/Device/ST/STM32F7xx/Include
 C_INCLUDES += -IDrivers/CMSIS/Include
 C_INCLUDES += -IDrivers/GPIO
@@ -103,7 +104,6 @@ C_INCLUDES += -IDrivers/System
 C_INCLUDES += -IDrivers/usart3
 C_INCLUDES += -IMiddlewares/DLTuc_libFiles
 C_INCLUDES += -IDrivers/Ethernet_nucleof767
-C_INCLUDES += $(lwip_INC)
 C_INCLUDES += $(Config_IncDirs)
 
 # compile gcc flags

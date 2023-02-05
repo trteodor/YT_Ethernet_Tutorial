@@ -1,6 +1,17 @@
 #ifndef __LWIPOPTS_H__
 #define __LWIPOPTS_H__
 
+
+#define CHECKSUM_BY_HARDWARE 
+
+#define LWIP_PROVIDE_ERRNO
+
+// #define LWIP_ERRNO_INCLUDE
+
+// #define LWIP_ERRNO_STDINCLUDE
+
+
+
 #define 	WITH_RTOS 		0
 
 #define 	NO_SYS			1
