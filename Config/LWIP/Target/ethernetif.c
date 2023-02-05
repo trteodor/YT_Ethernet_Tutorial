@@ -4,6 +4,7 @@
 #include "ethernetif.h"
 #include "eth_nuc_f767.h"
 #include <string.h>
+#include "lwipopts.h"
 #include "System.h"
 
 /* Network interface name */
@@ -13,7 +14,7 @@
 /* MAC ADDRESS*/
 #define MAC_ADDR0   00
 #define MAC_ADDR1   0x80
-#define MAC_ADDR2   0xE1
+#define MAC_ADDR2   0xE3
 #define MAC_ADDR3   00
 #define MAC_ADDR4   00
 #define MAC_ADDR5   00
@@ -48,7 +49,7 @@ static void low_level_init(struct netif *netif)
 {
   ETH_CallStatus_Type LinkState = 0;
 
-#ifdef CHECKSUM_BY_HARDWARE
+#if (CHECKSUM_BY_HARDWARE == 1)
   int i; 
 #endif
   /* set MAC hardware address length */
@@ -64,7 +65,18 @@ static void low_level_init(struct netif *netif)
 
   ETH_gpio_rcc_init();
   ETH_StructInit(&ETH_InitStruct);
+  ETH_InitStruct.ETH_BroadcastFramesReception = ETH_BroadcastFramesReception_Enable;
+
+  #if CHECKSUM_BY_HARDWARE == 0
+  ETH_InitStruct.ETH_ChecksumOffload = ETH_ChecksumOffload_Enable;
+  ETH_InitStruct.ETH_DropTCPIPChecksumErrorFrame = ETH_DropTCPIPChecksumErrorFrame_Disable;
+  #endif
+  ETH_InitStruct.ETH_PassControlFrames = ETH_PassControlFrames_ForwardAll;
+  ETH_InitStruct.ETH_SecondFrameOperate = ETH_SecondFrameOperate_Enable;
+
+
   ETH_Init(&ETH_InitStruct, LAN8742A_PHY_ADDRESS);
+
 
   LinkState = GetLinkState(LAN8742A_PHY_ADDRESS);
 
@@ -88,7 +100,7 @@ static void low_level_init(struct netif *netif)
   /* Initialize Rx Descriptors list: Chain Mode  */
   ETH_DMARxDescChainInit(DMARxDscrTab, &Rx_Buff[0][0], ETH_RXBUFNB);
 
-#ifdef CHECKSUM_BY_HARDWARE
+#if (CHECKSUM_BY_HARDWARE == 1)
   /* Enable the TCP, UDP and ICMP checksum insertion for the Tx frames */
   for(i=0; i<ETH_TXBUFNB; i++)
     {
