@@ -6,8 +6,6 @@
 
 #define LWIP_PROVIDE_ERRNO
 
-// #define HTTPD_USE_CUSTOM_FSDATA 1
-
 /*https://lwip-users.nongnu.narkive.com/afAK6Zqe/no-ping-response*/
 #ifdef CHECKSUM_BY_HARDWARE
 #define CHECKSUM_GEN_IP 0
@@ -45,5 +43,9 @@
 #define		LWIP_HTTPD						1
 
 #define		LWIP_HTTPD_SSI					1
+
+// #define HTTPD_USE_CUSTOM_FSDATA 1
+#define HTTPD_FSDATA_FILE "./../../../../Config/LWIP/Http_fsdata/fsdata.c"
+
 
 #endif

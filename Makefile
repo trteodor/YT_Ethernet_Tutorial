@@ -18,29 +18,6 @@ lwip_INC += -IMiddlewares/lwip-STABLE-2_1_3/src/include/lwip/priv
 lwip_INC += -IMiddlewares/lwip-STABLE-2_1_3/src/apps/http
 lwip_INC += -IMiddlewares/lwip-STABLE-2_1_3/src/include
 lwip_INC += -IMiddlewares/lwip-STABLE-2_1_3/src/system
-#########################################
-
-#######################################
-# Configi
-config_inc = $(wildcard Config/*/)
-config_inc1 = $(wildcard Config/*/*)
-config_inc2 = $(wildcard Config/*/*/*)
-config_dir += $(sort $(dir $(wildcard $(config_inc))))
-config_dir += $(sort $(dir $(wildcard $(config_inc1))))
-config_dir += $(sort $(dir $(wildcard $(config_inc2))))
-Dir_config_dir = $(sort $(dir $(wildcard $(config_dir))))
-
-
-Config_SRCC := $(foreach dir,$(Dir_config_dir),$(wildcard $(dir)*.c))
-
-Config_IncDirs = $(foreach dir, $(Dir_config_dir), $(addprefix -I, $(dir)))
-
-# $(info Includy: $(Config_IncDirs) )
-# $(info --------------- )
-# $(info --------------- )
-# $(info $(Config_SRCC) )
-# $(info --------------- )
-# $(info --------------- )
 
 ######################################
 # source
@@ -52,7 +29,8 @@ include Middlewares/lwip-STABLE-2_1_3/src/Filelists.mk
 
 # C sources
 C_SOURCES += Application/main.c
-C_SOURCES += $(Config_SRCC)
+C_SOURCES += Config/LWIP/App/lwip.c
+C_SOURCES += Config/LWIP/Target/ethernetif.c
 C_SOURCES += Application/leds.c
 C_SOURCES += Application/syscalls.c
 C_SOURCES += Application/sysmem.c
@@ -104,6 +82,10 @@ C_INCLUDES += -IDrivers/System
 C_INCLUDES += -IDrivers/usart3
 C_INCLUDES += -IMiddlewares/DLTuc_libFiles
 C_INCLUDES += -IDrivers/Ethernet_nucleof767
+C_INCLUDES += -IConfig/LWIP
+C_INCLUDES += -IConfig/LWIP/App
+C_INCLUDES += -IConfig/LWIP/arch
+C_INCLUDES += -IConfig/LWIP/Target
 C_INCLUDES += $(Config_IncDirs)
 
 # compile gcc flags
@@ -132,6 +114,26 @@ LIBDIR =
 LDFLAGS = $(MCU) -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
 
 
+$(info -----------------------------------------------------)
+$(info If You Changed HTML you should update  file "fsdata.c"!)
+$(info To do it you can use command: make html)
+$(info -----------------------------------------------------)
+
+all: flash $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
+	@echo -----------------------------------------------------
+	@echo If You Changed HTML you should update  file "fsdata.c"!
+	@echo To do it you can use call the target: make html_update
+	@echo -----------------------------------------------------
+
+html_update:
+	@echo HHTP Refreshing start
+	@echo ------------------------
+	./Tools/makedata/makefsdata.exe htmlgen AppHTML_Page -f:Config/LWIP/Http_fsdata/fsdata.c
+	@echo HTTP Refreshing end
+	@echo ------------------------
+	@echo ------------------------
+
+# flash: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
 flash: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
 	openocd \
 	-f interface/stlink.cfg -f target/stm32f7x.cfg \
@@ -139,7 +141,11 @@ flash: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARG
 	-c "flash write_image erase $(BUILD_DIR)/eth_tut.bin 0x8000000" \
 	-c "reset" -c "shutdown"
 # default action: build all
-all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
+
+
+
+
+.PHONY: $(refresh_html)
 
 
 #######################################

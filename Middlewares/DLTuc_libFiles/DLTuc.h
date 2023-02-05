@@ -81,7 +81,7 @@ typedef enum
  * Configuration defines 
  * *******************************************************************************************
  * */
-#define DLT_LOG_ECUID           "STF1" /*Electronic Controller Unit ID*/
+#define DLT_LOG_ECUID           "_ETH" /*Electronic Controller Unit ID*/
 
 /*@brief DLT_LOG_ECUID_VALUE
  *
@@ -180,7 +180,7 @@ void DLTuc_LogOutVarArgs(DltLogLevel_t Level, uint32_t AppId, uint32_t ContextId
 * \details to define the minimum level log which will printed using the debug macros
 *
 */
-#define DLT_LOG_APPID      "1234"
+#define DLT_LOG_APPID      "BASE"
 /**!
 * \brief DLT_LOG_ENABLE_LEVEL
 * \details to define the minimum level log which will printed using the debug macros
