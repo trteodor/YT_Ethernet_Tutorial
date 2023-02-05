@@ -1530,11 +1530,16 @@ ETH_CallStatus_Type GetLinkState(uint16_t PHYAddress);
 void ETH_StructInit(ETH_InitTypeDef* ETH_InitStruct);
 ETH_CallStatus_Type ETH_Init(ETH_InitTypeDef* ETH_InitStruct, uint16_t PHYAddress);
 ETH_CallStatus_Type ETH_CheckFrameAvaibility(void);
+FrameTypeDef ETH_Get_Received_Frame(void);
 uint32_t ETH_Prepare_Transmit_Descriptors(uint16_t FrameLength);
 void ETH_DMARxDescChainInit(ETH_DMADESCTypeDef *DMARxDescTab, uint8_t *RxBuff, uint32_t RxBuffCount);
+void ETH_DMATxDescChainInit(ETH_DMADESCTypeDef *DMATxDescTab, uint8_t* TxBuff, uint32_t TxBuffCount);
 ETH_CallStatus_Type  ETH_ReadPHYRegister(uint16_t PHYAddress, uint16_t PHYReg, uint32_t *RegValueRet);
 ETH_CallStatus_Type ETH_WritePHYRegister(uint16_t PHYAddress, uint16_t PHYReg, uint32_t RegValue);
+void ETH_MACAddressConfig(uint32_t MacAddr, uint8_t *Addr);
+void ETH_DMATxDescChecksumInsertionConfig(ETH_DMADESCTypeDef *DMATxDesc, uint32_t DMATxDesc_Checksum);
 void ETH_gpio_rcc_init(void);
+void ETH_Start(void);
 
 #ifdef EXPORTED_VARIABLES_ADD_TO_COMPILATION
 /* Common (global) variables with ethernet interface module */

@@ -366,6 +366,33 @@ uint32_t ETH_Prepare_Transmit_Descriptors(uint16_t FrameLength)
   return ETH_SUCCESS;   
 }
 
+/**
+  * @brief  This function should be called to get the received frame (to be used 
+  *   with polling method only).
+  * @param  none
+  * @retval Structure of type FrameTypeDef
+  */
+FrameTypeDef ETH_Get_Received_Frame(void)
+{ 
+  uint32_t framelength = 0;
+  FrameTypeDef frame = {0,0,0}; 
+
+  /* Get the Frame Length of the received packet: substruct 4 bytes of the CRC */
+  framelength = ((DMARxDescToGet->Status & ETH_DMARxDesc_FL) >> ETH_DMARxDesc_FrameLengthShift) - 4;
+  frame.length = framelength;
+
+  /* Get the address of the first frame descriptor and the buffer start address */ 
+  frame.descriptor = DMA_RX_FRAME_infos->FS_Rx_Desc;
+  frame.buffer =(DMA_RX_FRAME_infos->FS_Rx_Desc)->Buffer1Addr;
+
+  /* Update the ETHERNET DMA global Rx descriptor with next Rx descriptor */
+  /* Chained Mode */
+  /* Selects the next DMA Rx descriptor list for next buffer to read */ 
+  DMARxDescToGet = (ETH_DMADESCTypeDef*) (DMARxDescToGet->Buffer2NextDescAddr);
+
+  /* Return Frame */
+  return (frame);
+}
 
 
 /**
@@ -374,21 +401,6 @@ uint32_t ETH_Prepare_Transmit_Descriptors(uint16_t FrameLength)
   * @retval Returns OK when a frame pending, ERR if none.
   */
 ETH_CallStatus_Type ETH_CheckFrameAvaibility(void)
-{
-    if(((DMARxDescToGet->Status & ETH_DMARxDesc_OWN) == (uint32_t)RESET) &&
-     ((DMARxDescToGet->Status & ETH_DMARxDesc_LS) != (uint32_t)RESET))
-     {
-      return OK;
-     }
-     return ERR;
-}
-
-/**
-  * @brief  This function polls for a frame reception
-  * @param  None
-  * @retval Returns 1 when a frame is received, 0 if none.
-  */
-uint32_t ETH_GetReceivedFrame(void)
 {
   /* check if last segment */
   if(((DMARxDescToGet->Status & ETH_DMARxDesc_OWN) == (uint32_t)RESET) &&
@@ -400,7 +412,7 @@ uint32_t ETH_GetReceivedFrame(void)
       DMA_RX_FRAME_infos->FS_Rx_Desc = DMARxDescToGet;
     }
     DMA_RX_FRAME_infos->LS_Rx_Desc = DMARxDescToGet;
-    return 1;
+    return OK;
   }
 
   /* check if first segment */
@@ -422,9 +434,51 @@ uint32_t ETH_GetReceivedFrame(void)
     (DMA_RX_FRAME_infos->Seg_Count) ++;
     DMARxDescToGet = (ETH_DMADESCTypeDef*) (DMARxDescToGet->Buffer2NextDescAddr);
   } 
-  return 0;
+  return ERR;
 }
 
+
+/**
+  * @brief  Selects the specified ETHERNET DMA Tx Desc Checksum Insertion.
+  * @param  DMATxDesc: pointer on a DMA Tx descriptor 
+  * @param  DMATxDesc_Checksum: specifies is the DMA Tx desc checksum insertion.
+  *   This parameter can be one of the following values:
+  *     @arg ETH_DMATxDesc_ChecksumByPass : Checksum bypass
+  *     @arg ETH_DMATxDesc_ChecksumIPV4Header : IPv4 header checksum
+  *     @arg ETH_DMATxDesc_ChecksumTCPUDPICMPSegment : TCP/UDP/ICMP checksum. Pseudo header checksum is assumed to be present
+  *     @arg ETH_DMATxDesc_ChecksumTCPUDPICMPFull : TCP/UDP/ICMP checksum fully in hardware including pseudo header                                                                
+  * @retval None
+  */
+void ETH_DMATxDescChecksumInsertionConfig(ETH_DMADESCTypeDef *DMATxDesc, uint32_t DMATxDesc_Checksum)
+{
+  /* Set the selected DMA Tx desc checksum insertion control */
+  DMATxDesc->Status |= DMATxDesc_Checksum;
+}
+
+/**
+  * @brief  Configures the selected MAC address.
+  * @param  MacAddr: The MAC address to configure.
+  *   This parameter can be one of the following values:
+  *     @arg ETH_MAC_Address0 : MAC Address0 
+  *     @arg ETH_MAC_Address1 : MAC Address1 
+  *     @arg ETH_MAC_Address2 : MAC Address2
+  *     @arg ETH_MAC_Address3 : MAC Address3
+  * @param  Addr: Pointer on MAC address buffer data (6 bytes).
+  * @retval None
+  */
+void ETH_MACAddressConfig(uint32_t MacAddr, uint8_t *Addr)
+{
+  uint32_t tmpreg;
+  /* Check the parameters */
+  /* Calculate the selected MAC address high register */
+  tmpreg = ((uint32_t)Addr[5] << 8) | (uint32_t)Addr[4];
+  /* Load the selected MAC address high register */
+  (*(__IO uint32_t *) (ETH_MAC_ADDR_HBASE + MacAddr)) = tmpreg;
+  /* Calculate the selected MAC address low register */
+  tmpreg = ((uint32_t)Addr[3] << 24) | ((uint32_t)Addr[2] << 16) | ((uint32_t)Addr[1] << 8) | Addr[0];
+  /* Load the selected MAC address low register */
+  (*(__IO uint32_t *) (ETH_MAC_ADDR_LBASE + MacAddr)) = tmpreg;
+}
 
 
 
@@ -861,4 +915,171 @@ ETH_CallStatus_Type GetLinkState(uint16_t PHYAddress)
   }
 
 	return OK; //PHY_LINKED_STATUS should be TRUE (cable connected)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+  * @brief  Enables or disables the DMA transmission.
+  * @param  NewState: new state of the DMA transmission.
+  *   This parameter can be: ENABLE or DISABLE.
+  * @retval None
+  */
+void ETH_DMATransmissionCmd(FunctionalState NewState)
+{ 
+  if (NewState != DISABLE)
+  {
+    /* Enable the DMA transmission */
+    ETH->DMAOMR |= ETH_DMAOMR_ST;  
+  }
+  else
+  {
+    /* Disable the DMA transmission */
+    ETH->DMAOMR &= ~ETH_DMAOMR_ST;
+  }
+}
+
+
+/**
+  * @brief  Enables or disables the DMA reception.
+  * @param  NewState: new state of the DMA reception.
+  *   This parameter can be: ENABLE or DISABLE.
+  * @retval None
+  */
+void ETH_DMAReceptionCmd(FunctionalState NewState)
+{
+
+  if (NewState != DISABLE)
+  {
+    /* Enable the DMA reception */
+    ETH->DMAOMR |= ETH_DMAOMR_SR;
+  }
+  else
+  {
+    /* Disable the DMA reception */
+    ETH->DMAOMR &= ~ETH_DMAOMR_SR;
+  }
+}
+
+
+/**
+  * @brief  Enables or disables the MAC reception.
+  * @param  NewState: new state of the MAC reception.
+  *   This parameter can be: ENABLE or DISABLE.
+  * @retval None
+  */
+void ETH_MACReceptionCmd(FunctionalState NewState)
+{ 
+  __IO uint32_t tmpreg = 0;
+
+  if (NewState != DISABLE)
+  {
+    /* Enable the MAC reception */
+    ETH->MACCR |= ETH_MACCR_RE;
+  }
+  else
+  {
+    /* Disable the MAC reception */
+    ETH->MACCR &= ~ETH_MACCR_RE; 
+  }
+
+  /* Wait until the write operation will be taken into account :
+   at least four TX_CLK/RX_CLK clock cycles */
+  tmpreg = ETH->MACCR;
+  ETH_Delay(ETH_REG_WRITE_DELAY);
+  ETH->MACCR = tmpreg;
+}
+
+
+/**
+  * @brief  Enables or disables the MAC transmission.
+  * @param  NewState: new state of the MAC transmission.
+  *   This parameter can be: ENABLE or DISABLE.
+  * @retval None
+  */
+void ETH_MACTransmissionCmd(FunctionalState NewState)
+{ 
+  __IO uint32_t tmpreg = 0;
+
+  if (NewState != DISABLE)
+  {
+    /* Enable the MAC transmission */
+    ETH->MACCR |= ETH_MACCR_TE;
+  }
+  else
+  {
+    /* Disable the MAC transmission */
+    ETH->MACCR &= ~ETH_MACCR_TE;
+  }
+
+  /* Wait until the write operation will be taken into account :
+   at least four TX_CLK/RX_CLK clock cycles */
+  tmpreg = ETH->MACCR;
+  ETH_Delay(ETH_REG_WRITE_DELAY);
+  ETH->MACCR = tmpreg;
+}
+
+
+/**
+  * @brief  Clears the ETHERNET transmit FIFO.
+  * @param  None
+  * @retval None
+  */
+void ETH_FlushTransmitFIFO(void)
+{
+  __IO uint32_t tmpreg = 0;
+  /* Set the Flush Transmit FIFO bit */
+  ETH->DMAOMR |= ETH_DMAOMR_FTF;
+  
+  /* Wait until the write operation will be taken into account :
+   at least four TX_CLK/RX_CLK clock cycles */
+  tmpreg = ETH->DMAOMR;
+  ETH_Delay(ETH_REG_WRITE_DELAY);
+  ETH->DMAOMR = tmpreg;
+}
+
+
+
+/**
+  * @brief  Enables ENET MAC and DMA reception/transmission 
+  * @param  None
+  * @retval None
+  */
+void ETH_Start(void)
+{
+  /* Enable transmit state machine of the MAC for transmission on the MII */
+  ETH_MACTransmissionCmd(ENABLE);
+
+  /* Enable receive state machine of the MAC for reception from the MII */
+  ETH_MACReceptionCmd(ENABLE);
+
+  /* Flush Transmit FIFO */
+  ETH_FlushTransmitFIFO();
+
+  /* Start DMA transmission */
+  ETH_DMATransmissionCmd(ENABLE);
+
+  /* Start DMA reception */
+  ETH_DMAReceptionCmd(ENABLE);
+
 }

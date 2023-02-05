@@ -5,7 +5,10 @@
 #include "DLTuc.h"
 #include "eth_nuc_f767.h"
 
-ETH_InitTypeDef ETH_InitStruct_test;
+#include "lwip.h"
+#include "lwip/apps/httpd.h"
+
+extern struct netif gnetif;
 
 int main(void)
 {
@@ -14,9 +17,8 @@ int main(void)
     ConfigSysTick1ms();
     UART3InitTransmitWithDMAand_ucDLTlib();
 
-    ETH_gpio_rcc_init();
-    ETH_StructInit(&ETH_InitStruct_test);
-    ETH_Init(&ETH_InitStruct_test, LAN8742A_PHY_ADDRESS);
+    lwip_lib_init();
+	httpd_init();
 
     static uint32_t EthLinkTimer = 0;
     static ETH_CallStatus_Type LinkState = 0;
@@ -27,15 +29,20 @@ int main(void)
 
     while(1)
     {
+        lwip_process_data();
+
         if(GetSysTime() - EthLinkTimer > 200)
         {
+            EthLinkTimer = GetSysTime();
             tooglePIN(GPIOB,GREEN_LED);
+
+            DEBUGL(DL_INFO,"IP Address %s\r\n",ip4addr_ntoa(&gnetif.ip_addr));
 
             LinkState = GetLinkState(LAN8742A_PHY_ADDRESS);
 
             if(LinkState != PrevLinkState)
             {
-                DEBUGL(DL_INFO, "Ethernet Cable  %s", LinkState == OK?  "Connected":"Disconnected")
+                DEBUGL(DL_INFO, "Ethernet Cable  %s", LinkState == OK? "Connected":"Disconnected")
                 PrevLinkState = LinkState;
             }
         }
