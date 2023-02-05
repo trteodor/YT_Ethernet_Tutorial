@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dltproject>
+    <settings>
+        <table>
+            <fontSize>8</fontSize>
+            <sectionSize>16</sectionSize>
+            <fontName>Segoe UI,8,-1,5,50,0,0,0,0,0</fontName>
+            <automaticTimeSettings>1</automaticTimeSettings>
+            <automaticTimezoneFromDlt>1</automaticTimezoneFromDlt>
+            <utcOffset>3600</utcOffset>
+            <dst>1</dst>
+            <showIndex>1</showIndex>
+            <showTime>1</showTime>
+            <showTimestamp>1</showTimestamp>
+            <showCount>0</showCount>
+            <showEcuId>1</showEcuId>
+            <showApId>1</showApId>
+            <showApIdDesc>0</showApIdDesc>
+            <showCtId>1</showCtId>
+            <showCtIdDesc>0</showCtIdDesc>
+            <showType>1</showType>
+            <showSubtype>0</showSubtype>
+            <showMode>0</showMode>
+            <showNoar>0</showNoar>
+            <showPayload>1</showPayload>
+            <showArguments>0</showArguments>
+            <showMsgId>0</showMsgId>
+            <markercolor>#aaaaaa</markercolor>
+        </table>
+        <other>
+            <autoConnect>0</autoConnect>
+            <autoScroll>2</autoScroll>
+            <autoMarkFatalError>0</autoMarkFatalError>
+            <autoMarkWarn>0</autoMarkWarn>
+            <autoMarkMarker>1</autoMarkMarker>
+            <writeControl>1</writeControl>
+            <updateContextLoadingFile>1</updateContextLoadingFile>
+            <updateContextsUnregister>0</updateContextsUnregister>
+            <loggingOnlyMode>0</loggingOnlyMode>
+            <splitlogfile>0</splitlogfile>
+            <fmaxFileSizeMB>0</fmaxFileSizeMB>
+            <appendDateTime>0</appendDateTime>
+            <msgIdFormat>[%08u]</msgIdFormat>
+        </other>
+    </settings>
+    <ecu>
+        <id>STF1</id>
+        <description>A new ECU</description>
+        <interface>2</interface>
+        <hostname>localhost</hostname>
+        <mcinterface></mcinterface>
+        <mcIP>&lt;None&gt;</mcIP>
+        <ipport>3490</ipport>
+        <udpport>3490</udpport>
+        <port>COM11</port>
+        <baudrate>115200</baudrate>
+        <sendserialheadertcp>0</sendserialheadertcp>
+        <sendserialheaderserial>1</sendserialheaderserial>
+        <synctoserialheadertcp>0</synctoserialheadertcp>
+        <synctoserialheaderserial>1</synctoserialheaderserial>
+        <loglevel>6</loglevel>
+        <tracestatus>0</tracestatus>
+        <verbosemode>1</verbosemode>
+        <timingpackets>0</timingpackets>
+        <sendgetloginfo>0</sendgetloginfo>
+        <sendDefaultLogLevel>1</sendDefaultLogLevel>
+        <sendGetSoftwareVersion>1</sendGetSoftwareVersion>
+        <updatedata>1</updatedata>
+        <multicast>0</multicast>
+        <autoReconnect>1</autoReconnect>
+        <autoReconnectTimeout>3</autoReconnectTimeout>
+    </ecu>
+    <plugin>
+        <name>DLT DBus Plugin</name>
+        <filename></filename>
+        <mode>0</mode>
+        <type>0</type>
+        <prio>0</prio>
+    </plugin>
+    <plugin>
+        <name>DLT Logstorage Config Creator Plugin</name>
+        <filename></filename>
+        <mode>0</mode>
+        <type>0</type>
+        <prio>1</prio>
+    </plugin>
+    <plugin>
+        <name>DLT System Viewer Plugin</name>
+        <filename></filename>
+        <mode>0</mode>
+        <type>0</type>
+        <prio>2</prio>
+    </plugin>
+    <plugin>
+        <name>DLT Test Robot Plugin</name>
+        <filename></filename>
+        <mode>0</mode>
+        <type>0</type>
+        <prio>3</prio>
+    </plugin>
+    <plugin>
+        <name>DLT Viewer Plugin</name>
+        <filename></filename>
+        <mode>0</mode>
+        <type>0</type>
+        <prio>4</prio>
+    </plugin>
+    <plugin>
+        <name>Filetransfer Plugin</name>
+        <filename></filename>
+        <mode>0</mode>
+        <type>0</type>
+        <prio>5</prio>
+    </plugin>
+    <plugin>
+        <name>Non Verbose Mode Plugin</name>
+        <filename></filename>
+        <mode>0</mode>
+        <type>0</type>
+        <prio>6</prio>
+    </plugin>
+</dltproject>
