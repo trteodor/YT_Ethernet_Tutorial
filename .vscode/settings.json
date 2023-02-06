@@ -35,7 +35,9 @@
         "errno.h": "c",
         "opt.h": "c",
         "ethernetif.h": "c",
-        "times.h": "c"
+        "times.h": "c",
+        "http_process.h": "c",
+        "stdint.h": "c"
     },
     "cortex-debug.variableUseNaturalFormat": true
 }

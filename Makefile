@@ -29,6 +29,7 @@ include Middlewares/lwip-STABLE-2_1_3/src/Filelists.mk
 
 # C sources
 C_SOURCES += Application/main.c
+C_SOURCES += Application/http_process.c
 C_SOURCES += Config/LWIP/App/lwip.c
 C_SOURCES += Config/LWIP/Target/ethernetif.c
 C_SOURCES += Application/leds.c
@@ -116,7 +117,7 @@ LDFLAGS = $(MCU) -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BU
 
 $(info -----------------------------------------------------)
 $(info If You Changed HTML you should update  file "fsdata.c"!)
-$(info To do it you can use command: make html)
+$(info To do it you can use command: make html_update)
 $(info -----------------------------------------------------)
 
 all: flash $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin

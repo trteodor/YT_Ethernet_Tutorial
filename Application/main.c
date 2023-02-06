@@ -6,7 +6,14 @@
 #include "eth_nuc_f767.h"
 
 #include "lwip.h"
-#include "lwip/apps/httpd.h"
+#include "httpd.h"
+#include "http_process.h"
+
+
+extern char const ** tags;
+extern const tCGI LED_CGI;
+extern tCGI CGI_ARR[NUM_OF_CGIS];
+
 
 extern struct netif gnetif;
 
@@ -18,14 +25,19 @@ int main(void)
     UART3InitTransmitWithDMAand_ucDLTlib();
 
     lwip_lib_init();
+
 	httpd_init();
+	http_set_ssi_handler(ssi_handler,(const char **)tags, NUM_OF_TAGS);
+	CGI_ARR[0] = LED_CGI;
+	/*TODO :  Set CGI handler*/
+	http_set_cgi_handlers(CGI_ARR,NUM_OF_CGIS);
 
     static uint32_t EthLinkTimer = 0;
     static ETH_CallStatus_Type LinkState = 0;
     static ETH_CallStatus_Type PrevLinkState = 0;
     LinkState = GetLinkState(LAN8742A_PHY_ADDRESS);
     PrevLinkState= LinkState;
-    DEBUGL(DL_INFO, "Ethernet Cable  %s", LinkState == OK?  "Connected":"Disconnected")
+    DEBUGL(DL_INFO, "Ethernet Cable  %s", LinkState == OK?  "Connected":"Disconnected");
 
     while(1)
     {
@@ -34,7 +46,7 @@ int main(void)
         if(GetSysTime() - EthLinkTimer > 200)
         {
             EthLinkTimer = GetSysTime();
-            tooglePIN(GPIOB,GREEN_LED);
+            // tooglePIN(GPIOB,GREEN_LED);
 
             DEBUGL(DL_INFO,"IP Address %s\r\n",ip4addr_ntoa(&gnetif.ip_addr));
 
@@ -42,7 +54,7 @@ int main(void)
 
             if(LinkState != PrevLinkState)
             {
-                DEBUGL(DL_INFO, "Ethernet Cable  %s", LinkState == OK? "Connected":"Disconnected")
+                DEBUGL(DL_INFO, "Ethernet Cable  %s", LinkState == OK? "Connected":"Disconnected");
                 PrevLinkState = LinkState;
             }
         }

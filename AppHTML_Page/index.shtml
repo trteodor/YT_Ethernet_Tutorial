@@ -1,33 +1,114 @@
-<!DOCTYPE html>
-<html lang="pl">
+<!DOCTYPE HTML><html lang="pl">
 <head>
-		<meta charset="ucf-8" />
-<title>STM32 F767 Test</title>
-<meta charset="utf-8" />
-</head>
-<head>
-    <title>Page Title</title>
-    <meta http-equiv="refresh" content="5">
+  <title>STM32F767 test</title>
+  <meta http-equiv="refresh" content ="5">
+  <link rel="icon" href="data:,">
+  <style>
+  html {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+  }
+  h1 {
+    font-size: 1.8rem;
+    color: white;
+  }
+  h2{
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #143642;
+  }
+  h3{
+    font-size: 1rem;
+    font-weight: bold;
+    color: #000000;
+  }
+  .Zmienna_Np{
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #00ff11;
+   }
+  
+  .Naglowek {
+    overflow: hidden;
+    background-color: #7da9d5;
+  }
+  body {
+    margin: 0;
+  }
+  .content {
+    padding: 30px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .card {
+    background-color: #F8F7F9;;
+    padding-top:50px;
+    padding-bottom:50px;
+  }
+  
+  .image {
+    padding-top:50px;
+    padding-bottom:50px;
+    margin: 30px 30px 30px 30px;
+  }
+
+  .ButtonSend{
+	   width: 200px;
+	   background-color:#71df56;
+	   border: none;
+	   color: white;
+	   padding: 13px 30px;
+	   text-decoration: none;
+	   font-size: 25px;
+	   margin: 30px 30px 30px 30px;
+	   cursor: pointer;
+	   border-radius: 4px;
+       position: center;
+  }
+
+  .largerCheckbox {
+            width: 60px;
+            height: 60px;
+        }
+
+   .state {
+     font-size: 1.5rem;
+     color:#8c8c8c;
+     font-weight: bold;
+   }
+  </style>
 </head>
 <body>
-<p>Simple HTTP Test Created by Teodor R.</p>
-<br>
-<p>This site allows you to control the LEDs: LED1 and LED2. You have to click on the "Send" button to change the LEDs</p>
-<form method="get" action="/leds.cgi">
-<!--#tag1-->LED1 (green)
-<br>
-<!--#tag2-->LED2 (red)
-<br>
-<td><!--#tag3--> <small><span style="font-family: Verdana;"></span></small> </td>
-<br>
-<input value="Send" type="submit">
-</form>
-<br>
-<br>
-Mój git Hub<a href="https://github.com/trteodor" target=blank>  https://github.com/trteodor </a>
-<br>
-<br>
-<img src="img/pikaavatar.png" alt="Pozdrawiam">
+  <div class="Naglowek">
+    <h1> Prosta strona na Mikrokontrolerze STM32F767 </h1>
+    <h1> Mozesz sie pobawic teraz diodami! :) </h1>
+
+  </div>
+  <div class="content">
+    <div class="card">
+    <form method="get" action="/leds.cgi">
+    <table style="width:100%"></table>
+    <tr>
+      <h2>Czas w MS na Mikrokontrolerze:</h2>
+      <h2 class="Zmienna_Np"><!--#tag1--></h2>
+      <h2>Stan Diody 1:</h2>
+      <h2 class="led1"><!--#tag2--></h2>
+      <h2>Stan Diody 2:</h2>
+      <h2 class="led2"><!--#tag3--></h2>
+    </tr>
+      <input value="Send" type="submit" class="ButtonSend">
+    </table>
+    </form>
+    </div>
+  </div>
+
+<img src="img/pikaavatar.png" alt="Pozdrawiam" style="float: left">
 <img src="img/pikaavatar.png" alt="Pozdrawiam" style="float: right">
+<h2>Pobaw sie tez samodzielnie, sprobuj dokonac nieco modyfikacji! Ja HTML'a nie znam najlepiej..</h2>
+<h2> Aby nauczyc sie więcej o mikrokontrolerach STM32 sprawdz Moj kanal Youtube: </h2>
+<h2> <a href="https://www.youtube.com/@teodorros9310" target=blank> https://www.youtube.com/@teodorros9310 </a> </h2>
+<h2> Możesz też zajrzec na Github: </h2>
+<h2> <a href="https://github.com/trteodor" target=blank>  https://github.com/trteodor </a> </h2>
+
 </body>
 </html>

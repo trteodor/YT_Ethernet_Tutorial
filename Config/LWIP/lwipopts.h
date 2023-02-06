@@ -44,6 +44,8 @@
 
 #define		LWIP_HTTPD_SSI					1
 
+#define		LWIP_HTTPD_CGI					1
+
 // #define HTTPD_USE_CUSTOM_FSDATA 1
 #define HTTPD_FSDATA_FILE "./../../../../Config/LWIP/Http_fsdata/fsdata.c"
 
