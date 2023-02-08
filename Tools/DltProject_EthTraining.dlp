@@ -29,7 +29,7 @@
         </table>
         <other>
             <autoConnect>0</autoConnect>
-            <autoScroll>2</autoScroll>
+            <autoScroll>0</autoScroll>
             <autoMarkFatalError>0</autoMarkFatalError>
             <autoMarkWarn>0</autoMarkWarn>
             <autoMarkMarker>1</autoMarkMarker>
@@ -70,6 +70,74 @@
         <autoReconnect>1</autoReconnect>
         <autoReconnectTimeout>3</autoReconnectTimeout>
     </ecu>
+    <pfilter>
+        <type>2</type>
+        <name>Led1</name>
+        <ecuid>_ETH</ecuid>
+        <applicationid>BASE</applicationid>
+        <contextid>TEST</contextid>
+        <headertext>2023/02/08 18:22:56.670000 22.1290 5 _ETH BASE TEST 0 log info verbose 1</headertext>
+        <payloadtext>LedNum1</payloadtext>
+        <regex_search></regex_search>
+        <regex_replace></regex_replace>
+        <messageIdMin>0</messageIdMin>
+        <messageIdMax>0</messageIdMax>
+        <enableregexp_Appid>0</enableregexp_Appid>
+        <enableregexp_Context>0</enableregexp_Context>
+        <enableregexp_Header>0</enableregexp_Header>
+        <enableregexp_Payload>0</enableregexp_Payload>
+        <ignoreCase_Header>0</ignoreCase_Header>
+        <ignoreCase_Payload>0</ignoreCase_Payload>
+        <enablefilter>1</enablefilter>
+        <enableecuid>0</enableecuid>
+        <enableapplicationid>0</enableapplicationid>
+        <enablecontextid>0</enablecontextid>
+        <enableheadertext>0</enableheadertext>
+        <enablepayloadtext>1</enablepayloadtext>
+        <enablectrlmsgs>0</enablectrlmsgs>
+        <enableLogLevelMin>0</enableLogLevelMin>
+        <enableLogLevelMax>0</enableLogLevelMax>
+        <enableMarker>0</enableMarker>
+        <enableMessageId>0</enableMessageId>
+        <enableRegexSearchReplace>0</enableRegexSearchReplace>
+        <filterColour>#005b1e</filterColour>
+        <logLevelMax>0</logLevelMax>
+        <logLevelMin>0</logLevelMin>
+    </pfilter>
+    <pfilter>
+        <type>2</type>
+        <name>LedNum2</name>
+        <ecuid>_ETH</ecuid>
+        <applicationid>BASE</applicationid>
+        <contextid>TEST</contextid>
+        <headertext>2023/02/08 18:23:42.696000 68.1510 33 _ETH BASE TEST 0 log info verbose 1</headertext>
+        <payloadtext>LedNum2</payloadtext>
+        <regex_search></regex_search>
+        <regex_replace></regex_replace>
+        <messageIdMin>0</messageIdMin>
+        <messageIdMax>0</messageIdMax>
+        <enableregexp_Appid>0</enableregexp_Appid>
+        <enableregexp_Context>0</enableregexp_Context>
+        <enableregexp_Header>0</enableregexp_Header>
+        <enableregexp_Payload>0</enableregexp_Payload>
+        <ignoreCase_Header>0</ignoreCase_Header>
+        <ignoreCase_Payload>0</ignoreCase_Payload>
+        <enablefilter>1</enablefilter>
+        <enableecuid>0</enableecuid>
+        <enableapplicationid>0</enableapplicationid>
+        <enablecontextid>0</enablecontextid>
+        <enableheadertext>0</enableheadertext>
+        <enablepayloadtext>1</enablepayloadtext>
+        <enablectrlmsgs>0</enablectrlmsgs>
+        <enableLogLevelMin>0</enableLogLevelMin>
+        <enableLogLevelMax>0</enableLogLevelMax>
+        <enableMarker>0</enableMarker>
+        <enableMessageId>0</enableMessageId>
+        <enableRegexSearchReplace>0</enableRegexSearchReplace>
+        <filterColour>#562020</filterColour>
+        <logLevelMax>0</logLevelMax>
+        <logLevelMin>0</logLevelMin>
+    </pfilter>
     <plugin>
         <name>DLT DBus Plugin</name>
         <filename></filename>

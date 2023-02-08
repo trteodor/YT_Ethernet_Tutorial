@@ -1,11 +1,15 @@
 #include "lwip/opt.h"
 #include "lwip/mem.h"
+#include "lwip/dhcp.h"
 #include "netif/etharp.h"
 #include "ethernetif.h"
 #include "eth_nuc_f767.h"
 #include <string.h>
 #include "lwipopts.h"
 #include "System.h"
+#include "DLTuc.h"
+
+#define DEFAULT_IP_ADDRES 0
 
 /* Network interface name */
 #define IFNAME0 's'
@@ -78,8 +82,9 @@ static void low_level_init(struct netif *netif)
   ETH_Init(&ETH_InitStruct, LAN8742A_PHY_ADDRESS);
 
 
-  LinkState = GetLinkState(LAN8742A_PHY_ADDRESS);
+  LinkState = ETH_GetLinkState(LAN8742A_PHY_ADDRESS);
 
+  DEBUGL(DL_INFO, "Ethernet Cable  %s", LinkState == OK? "Connected":"Disconnected");
   /* initialize MAC address in ethernet MAC */ 
   ETH_MACAddressConfig(ETH_MAC_Address0, netif->hwaddr); 
 
@@ -365,6 +370,59 @@ err_t ethernetif_init(struct netif *netif)
 
   return ERR_OK;
 }
+
+
+uint8_t ethernetif_handle_link_state(struct netif *netif)
+{
+  static uint32_t EthernetLinkTimer = 0;
+  ETH_CallStatus_Type LinkState = 0u;
+
+	/*Check link every 200ms*/
+	if(GetSysTime() - EthernetLinkTimer >= 200 )
+	{
+		EthernetLinkTimer =  GetSysTime();
+
+    LinkState = ETH_GetLinkState(LAN8742A_PHY_ADDRESS);
+
+		/*Check if netif link is down and PHY link is up*/
+		if(!netif_is_link_up(netif) && (LinkState == OK))
+		{
+			/*Network cable is connected*/
+			netif_set_link_up(netif);
+		}
+		else if(netif_is_link_up(netif) && (LinkState != OK))
+		{
+			netif_set_link_down(netif);
+      netif->ip_addr.addr = DEFAULT_IP_ADDRES; /*Reset IP addres*/
+		}
+	}
+	return LinkState;
+}
+
+
+void ethernetif_update_config(struct netif *netif)
+{
+   ETH_InitTypeDef *ETH_HandlerStruct = &ETH_InitStruct;
+
+   /*Check if link is up*/
+   if(netif_is_link_up(netif))
+   {
+        ETH_RefreshMAC_Configuration(ETH_HandlerStruct, LAN8742A_PHY_ADDRESS);
+        ETH_Start();
+        DEBUGL(DL_INFO,"ETH Connected! ");
+        netif_set_up(netif);
+        dhcp_start(netif); //Refresh dhcp
+   }
+   else  /*link is down*/
+   {
+      /*Stop mac*/
+      DEBUGL(DL_INFO,"ETH Disconnected! ");
+      netif_set_down(netif);	
+      ETH_Stop(ETH_HandlerStruct,LAN8742A_PHY_ADDRESS);
+   }
+}
+
+
 
 u32_t sys_now(void)
 {

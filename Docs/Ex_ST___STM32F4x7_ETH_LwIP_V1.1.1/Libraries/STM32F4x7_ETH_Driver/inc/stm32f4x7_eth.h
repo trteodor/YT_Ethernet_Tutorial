@@ -4,7 +4,7 @@
   * @author  MCD Application Team
   * @version V1.1.0
   * @date    31-July-2013
-  * @brief   This file contains all the functions prototypes for the Ethernet
+  * @brief   This file contains all the functions prototypes for the Ethern`et
   *          firmware driver.
   ******************************************************************************
   * @attention
@@ -48,7 +48,7 @@
 /** 
   * @brief  ETH MAC Init structure definition
   * @note   The user should not configure all the ETH_InitTypeDef structure's fields. 
-  *   By calling the ETH_StructInit function the structure’s fields are set to their default values.
+  *   By calling the ETH_StructInit function the structureï¿½s fields are set to their default values.
   *   Only the parameters that will be set to a non-default value should be configured.  
   */ 
 typedef struct {

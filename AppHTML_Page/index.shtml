@@ -92,9 +92,9 @@
       <h2>Czas w MS na Mikrokontrolerze:</h2>
       <h2 class="Zmienna_Np"><!--#tag1--></h2>
       <h2>Stan Diody 1:</h2>
-      <h2 class="led1"><!--#tag2--></h2>
+      <h2 class="ledClass1"><!--#tag2--></h2>
       <h2>Stan Diody 2:</h2>
-      <h2 class="led2"><!--#tag3--></h2>
+      <h2 class="ledClass2"><!--#tag3--></h2>
     </tr>
       <input value="Send" type="submit" class="ButtonSend">
     </table>

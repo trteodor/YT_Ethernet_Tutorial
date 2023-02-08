@@ -586,6 +586,127 @@ void ETH_StructInit(ETH_InitTypeDef* ETH_InitStruct)
 
 
 
+ETH_CallStatus_Type ETH_GetPhyActualConfiguration(ETH_InitTypeDef* ETH_DescStruct, uint16_t PHYAddress)
+{
+  uint32_t RegValue = 0u;
+  __IO uint32_t timeout = 0, err = OK;
+
+  if(ETH_DescStruct->ETH_AutoNegotiation != ETH_AutoNegotiation_Disable)
+  {
+    /* We wait for linked status...*/
+    do
+    {
+      ETH_ReadPHYRegister(PHYAddress, PHY_BSR,&RegValue);
+      timeout++;
+    } while (!( RegValue & PHY_Linked_Status) && (timeout < PHY_READ_TO));
+
+    /* Return ERROR in case of timeout */
+    if(timeout == PHY_READ_TO)
+    {
+      err = ERR;
+      goto error;
+    }
+
+    /* Reset Timeout counter */
+    timeout = 0;
+    /* Enable Auto-Negotiation */
+    if(ETH_WritePHYRegister(PHYAddress, PHY_BCR, PHY_AutoNegotiation) == ERR)
+    {
+      /* Return ERROR in case of write timeout */
+      err = ERR;
+    }
+
+    /* Wait until the auto-negotiation will be completed */
+    do
+    {
+      timeout++;
+      ETH_ReadPHYRegister(PHYAddress, PHY_BSR,&RegValue);
+
+    } while (!( RegValue & PHY_AutoNego_Complete) && (timeout < (uint32_t)PHY_READ_TO));
+
+    /* Return ERROR in case of timeout */
+    if(timeout == PHY_READ_TO)
+    {
+      err = ERR;
+      goto error;
+    }
+
+    /* Reset Timeout counter */
+    timeout = 0;
+    /* Read the result of the auto-negotiation */
+    ETH_ReadPHYRegister(PHYAddress, PHY_SR,&RegValue);
+    /* Configure the MAC with the Duplex Mode fixed by the auto-negotiation process */
+    if((RegValue & PHY_DUPLEX_STATUS) != (uint32_t)RESET)
+    {
+      /* Set Ethernet duplex mode to Full-duplex following the auto-negotiation */
+      ETH_DescStruct->ETH_Mode = ETH_Mode_FullDuplex;
+    }
+    else
+    {
+      /* Set Ethernet duplex mode to Half-duplex following the auto-negotiation */
+      ETH_DescStruct->ETH_Mode = ETH_Mode_HalfDuplex;
+    }
+    /* Configure the MAC with the speed fixed by the auto-negotiation process */
+    if(RegValue & PHY_SPEED_STATUS)
+    {
+      /* Set Ethernet speed to 10M following the auto-negotiation */
+      ETH_DescStruct->ETH_Speed = ETH_Speed_10M;
+    }
+    else
+    {
+      /* Set Ethernet speed to 100M following the auto-negotiation */
+      ETH_DescStruct->ETH_Speed = ETH_Speed_100M;
+    }
+  }
+  else
+  {
+    if(ETH_WritePHYRegister(PHYAddress, PHY_BCR, ((uint16_t)(ETH_DescStruct->ETH_Mode >> 3) |
+                                                   (uint16_t)(ETH_DescStruct->ETH_Speed >> 1))) == ERR)
+    {
+      /* Return ERROR in case of write timeout */
+       err = ERR;
+    }
+    /* Delay to assure PHY configuration */
+    ETH_Delay(PHY_CONFIG_DELAY);
+  }
+error:
+  if (err == ERR) /* Auto-negotiation failed */
+  {
+    /* Set Ethernet duplex mode to Full-duplex */
+    ETH_DescStruct->ETH_Mode = ETH_Mode_FullDuplex;
+
+    /* Set Ethernet speed to 100M */
+    ETH_DescStruct->ETH_Speed = ETH_Speed_100M;
+  }
+
+return err;
+
+}
+
+
+ETH_CallStatus_Type ETH_RefreshMAC_Configuration(ETH_InitTypeDef* ETH_DescStruct, uint16_t PHYAddress)
+{
+	  uint32_t tmpreg = 0;
+    ETH_CallStatus_Type CallStatus = ERR;
+
+    CallStatus = ETH_GetPhyActualConfiguration(ETH_DescStruct,PHYAddress);
+		/*Get MACCR value*/
+		 tmpreg =  ETH->MACCR;
+		 /*Clear Speed bit and Duplex bit*/
+		 tmpreg &= ((uint32_t)0x00004800); // 0b  000 000....   0100 1000 0000 0000
+
+		 tmpreg |= (uint32_t)(ETH_DescStruct->ETH_Speed | ETH_DescStruct->ETH_Mode);
+
+		 /*Wait to make sure write operation is effective*/
+		 tmpreg = ETH->MACCR;
+		 DelayMs(ETH_REG_WRITE_DELAY);
+		 ETH->MACCR = tmpreg ;
+    return CallStatus;
+}
+
+
+
+
 /**
   * @brief  Initializes the ETHERNET peripheral according to the specified
   *   parameters in the ETH_InitStruct .
@@ -597,7 +718,7 @@ void ETH_StructInit(ETH_InitTypeDef* ETH_InitStruct)
   */
 ETH_CallStatus_Type ETH_Init(ETH_InitTypeDef* ETH_InitStruct, uint16_t PHYAddress)
 {
-  uint32_t RegValue = 0, tmpreg = 0;
+  uint32_t tmpreg = 0;
   uint32_t hclk = SYSTEM_CORE_CLOCK_HZ_VALUE;
   __IO uint32_t timeout = 0, err = OK;
 
@@ -658,100 +779,15 @@ ETH_CallStatus_Type ETH_Init(ETH_InitTypeDef* ETH_InitStruct, uint16_t PHYAddres
   {
     /* Return ERROR in case of write timeout */
     err = ERR;
-    goto error;
+    ETH_InitStruct->ETH_Mode = ETH_Mode_FullDuplex;
+    ETH_InitStruct->ETH_Speed = ETH_Speed_100M;
   }
 
   /* Delay to assure PHY reset */
   ETH_Delay(PHY_RESET_DELAY);
 
-  if(ETH_InitStruct->ETH_AutoNegotiation != ETH_AutoNegotiation_Disable)
-  {
-    /* We wait for linked status...*/
-    do
-    {
-      ETH_ReadPHYRegister(PHYAddress, PHY_BSR,&RegValue);
-      timeout++;
-    } while (!( RegValue & PHY_Linked_Status) && (timeout < PHY_READ_TO));
+  err = ETH_GetPhyActualConfiguration(ETH_InitStruct,PHYAddress);
 
-    /* Return ERROR in case of timeout */
-    if(timeout == PHY_READ_TO)
-    {
-      err = ERR;
-      goto error;
-    }
-
-    /* Reset Timeout counter */
-    timeout = 0;
-    /* Enable Auto-Negotiation */
-    if(ETH_WritePHYRegister(PHYAddress, PHY_BCR, PHY_AutoNegotiation) == ERR)
-    {
-      /* Return ERROR in case of write timeout */
-      err = ERR;
-    }
-
-    /* Wait until the auto-negotiation will be completed */
-    do
-    {
-      timeout++;
-      ETH_ReadPHYRegister(PHYAddress, PHY_BSR,&RegValue);
-
-    } while (!( RegValue & PHY_AutoNego_Complete) && (timeout < (uint32_t)PHY_READ_TO));
-
-    /* Return ERROR in case of timeout */
-    if(timeout == PHY_READ_TO)
-    {
-      err = ERR;
-      goto error;
-    }
-
-    /* Reset Timeout counter */
-    timeout = 0;
-    /* Read the result of the auto-negotiation */
-    ETH_ReadPHYRegister(PHYAddress, PHY_SR,&RegValue);
-    /* Configure the MAC with the Duplex Mode fixed by the auto-negotiation process */
-    if((RegValue & PHY_DUPLEX_STATUS) != (uint32_t)RESET)
-    {
-      /* Set Ethernet duplex mode to Full-duplex following the auto-negotiation */
-      ETH_InitStruct->ETH_Mode = ETH_Mode_FullDuplex;
-    }
-    else
-    {
-      /* Set Ethernet duplex mode to Half-duplex following the auto-negotiation */
-      ETH_InitStruct->ETH_Mode = ETH_Mode_HalfDuplex;
-    }
-    /* Configure the MAC with the speed fixed by the auto-negotiation process */
-    if(RegValue & PHY_SPEED_STATUS)
-    {
-      /* Set Ethernet speed to 10M following the auto-negotiation */
-      ETH_InitStruct->ETH_Speed = ETH_Speed_10M;
-    }
-    else
-    {
-      /* Set Ethernet speed to 100M following the auto-negotiation */
-      ETH_InitStruct->ETH_Speed = ETH_Speed_100M;
-    }
-  }
-  else
-  {
-    if(ETH_WritePHYRegister(PHYAddress, PHY_BCR, ((uint16_t)(ETH_InitStruct->ETH_Mode >> 3) |
-                                                   (uint16_t)(ETH_InitStruct->ETH_Speed >> 1))) == ERR)
-    {
-      /* Return ERROR in case of write timeout */
-       err = ERR;
-    }
-    /* Delay to assure PHY configuration */
-    ETH_Delay(PHY_CONFIG_DELAY);
-  }
-error:
-  if (err == ERR) /* Auto-negotiation failed */
-  {
-    /* Set Ethernet duplex mode to Full-duplex */
-    ETH_InitStruct->ETH_Mode = ETH_Mode_FullDuplex;
-
-    /* Set Ethernet speed to 100M */
-    ETH_InitStruct->ETH_Speed = ETH_Speed_100M;
-  }
- 
 
    /*------------------------ ETHERNET MACCR Configuration --------------------*/
     /* Get the ETHERNET MACCR value */
@@ -885,6 +921,18 @@ error:
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 /*!
  ************************************************************************************************
  * \brief ETH_WritePHYRegister
@@ -892,7 +940,7 @@ error:
  * \return Status if "OK" Link connected, "ERR" if is disconnect
  * 
  * */
-ETH_CallStatus_Type GetLinkState(uint16_t PHYAddress)
+ETH_CallStatus_Type ETH_GetLinkState(uint16_t PHYAddress)
 {
   uint32_t readval = 0;
   
@@ -916,13 +964,6 @@ ETH_CallStatus_Type GetLinkState(uint16_t PHYAddress)
 
 	return OK; //PHY_LINKED_STATUS should be TRUE (cable connected)
 }
-
-
-
-
-
-
-
 
 
 
@@ -1082,4 +1123,26 @@ void ETH_Start(void)
   /* Start DMA reception */
   ETH_DMAReceptionCmd(ENABLE);
 
+}
+
+
+ETH_CallStatus_Type ETH_Stop(ETH_InitTypeDef* ETH_Struct, uint16_t PHYAddress)
+{
+
+  /* Enable transmit state machine of the MAC for transmission on the MII */
+  ETH_MACTransmissionCmd(DISABLE);
+
+  /* Enable receive state machine of the MAC for reception from the MII */
+  ETH_MACReceptionCmd(DISABLE);
+
+  /* Flush Transmit FIFO */
+  ETH_FlushTransmitFIFO();
+
+  /* Start DMA transmission */
+  ETH_DMATransmissionCmd(DISABLE);
+
+  /* Start DMA reception */
+  ETH_DMAReceptionCmd(DISABLE);
+
+	return OK;
 }

@@ -39,5 +39,5 @@
         "http_process.h": "c",
         "stdint.h": "c"
     },
-    "cortex-debug.variableUseNaturalFormat": true
+    "cortex-debug.variableUseNaturalFormat": false
 }

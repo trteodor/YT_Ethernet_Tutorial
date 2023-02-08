@@ -22,36 +22,54 @@ tCGI CGI_ARR[NUM_OF_CGIS];
 
 const char * led_cgi_handler (int iIndex, int iNumParams, char *pcParam[], char *pcValue[])
 {
+	bool ActualLed1State =false; 
+	bool ActualLed2State = false;
 
 	uint32_t i = 0;
 
 	if( iIndex == 0)
 	{
-		LedNum1 = LedNum2 = 0;
-		DEBUGL(DL_INFO,"Wylacz wszystkie diody \n\r");
-		GPIO_PinReset(GPIOB,GREEN_LED);
-		GPIO_PinReset(GPIOB,BLUE_LED);
-
 		for( i = 0; i < iNumParams; i++)
 		{
 			if(strcmp(pcParam[i],"led") == 0)
 			{
 				if(strcmp(pcValue[i],"1") == 0)
 				{
-					DEBUGL(DL_INFO,"LedNum1 Green Zapal \n\r");
-					GPIO_PinSet(GPIOB,GREEN_LED);
-					LedNum1 = 1;
+					ActualLed1State = true;
 				}
 
 				else if(strcmp(pcValue[i],"2") == 0)
 				{
-					DEBUGL(DL_INFO,"LedNum2 BLUE Zapal \n\r");
-					GPIO_PinSet(GPIOB,BLUE_LED);
-					LedNum2 = 1;
+					ActualLed2State = true;
 				}
 			}
 		  }
 	}
+
+
+	if(ActualLed1State == true && LedNum1 == false){
+		LedNum1 = true;
+		GPIO_PinSet(GPIOB,BLUE_LED);
+		DEBUGL(DL_INFO,"Uruchamiam Diode Niebieska \n\r");
+	}
+	if(ActualLed1State == false && LedNum1 == true){
+		LedNum1 = false;
+		GPIO_PinReset(GPIOB,BLUE_LED);
+		DEBUGL(DL_INFO,"Wylaczam Diode Niebieska \n\r");
+	}
+
+	if(ActualLed2State == true && LedNum2 == false){
+		LedNum2 = true;
+		GPIO_PinSet(GPIOB,GREEN_LED);
+		DEBUGL(DL_INFO,"Uruchamiam Diode Zielona \n\r");
+	}
+	if(ActualLed2State == false && LedNum2 == true){
+		LedNum2 = false;
+		GPIO_PinReset(GPIOB,GREEN_LED);
+		DEBUGL(DL_INFO,"Wylaczam Diode Zielona \n\r");
+	}
+
+
 	return "/index.shtml";
 }
 

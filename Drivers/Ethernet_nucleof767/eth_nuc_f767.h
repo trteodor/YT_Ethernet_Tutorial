@@ -1526,9 +1526,11 @@ typedef struct  {
 
 
 /*export functions*/
-ETH_CallStatus_Type GetLinkState(uint16_t PHYAddress);
+ETH_CallStatus_Type ETH_GetLinkState(uint16_t PHYAddress);
 void ETH_StructInit(ETH_InitTypeDef* ETH_InitStruct);
 ETH_CallStatus_Type ETH_Init(ETH_InitTypeDef* ETH_InitStruct, uint16_t PHYAddress);
+ETH_CallStatus_Type ETH_Stop(ETH_InitTypeDef* ETH_Struct, uint16_t PHYAddress);
+ETH_CallStatus_Type ETH_RefreshMAC_Configuration(ETH_InitTypeDef* ETH_DescStruct, uint16_t PHYAddress);
 ETH_CallStatus_Type ETH_CheckFrameAvaibility(void);
 FrameTypeDef ETH_Get_Received_Frame(void);
 uint32_t ETH_Prepare_Transmit_Descriptors(uint16_t FrameLength);

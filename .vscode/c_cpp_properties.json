@@ -5,6 +5,7 @@
             "includePath": [
                 "${workspaceFolder}/Application/**",
                 "${workspaceFolder}/Drivers/**",
+                "${workspaceFolder}/Config/**",
                 "${workspaceFolder}/Middlewares/**"
             ],
             "defines": [
