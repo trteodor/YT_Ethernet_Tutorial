@@ -3,7 +3,7 @@
 **_DIRECTORY: "Application" contain provided example_**
 
 This repository contains the sources created during the Ethernet tutorial video in Polish leanguage. 
-The video is available at this link:
+The video is available at this link: https://youtu.be/9Bin-fLZq6M
 
 
 Directory: Drivers/Ethernet/* contain prepared files for ethernet  driver
